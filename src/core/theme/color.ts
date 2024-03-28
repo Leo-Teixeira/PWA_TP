@@ -1,9 +1,9 @@
 const EpsColors = {
-  primaryRed: "#d7000f",
-  primaryGreen: "#008a22",
-  secondaryGreenHover: "#007430",
-  secondaryGreenContrast: "#a5be24",
-  secondaryHover: "#c7d773",
+  red: "#db504a",
+  darkBlue: "#084c61",
+  yellow: "#e3b505",
+  darkGreen: "#4f6d7a",
+  blue: "#56a3a6",
 };
 
 export default EpsColors;
