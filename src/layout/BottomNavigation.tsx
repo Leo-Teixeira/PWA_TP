@@ -5,6 +5,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 export default function LabelBottomNavigation() {   
   const [value, setValue] = React.useState('recents');
@@ -16,9 +17,9 @@ export default function LabelBottomNavigation() {
   return (
     <BottomNavigation sx={{ width: 500 }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        label="Recents"
-        value="recents"
-        icon={<RestoreIcon />}
+        label="Photos"
+        value="photos"
+        icon={<PhotoCameraIcon />}
       />
       <BottomNavigationAction
         label="Favorites"
