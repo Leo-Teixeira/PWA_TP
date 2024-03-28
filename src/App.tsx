@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import BottomNavigation from "./layout/BottomNavigation";
+import BottomNavigation from "./layout/BottomNavigation.tsx";
 
 
 function App() {
