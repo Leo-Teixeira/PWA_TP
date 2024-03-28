@@ -5,9 +5,9 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import GroupIcon from "@mui/icons-material/Group";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import LanguageIcon from "@mui/icons-material/Language";
-import "../core/layout/BottomNavigation.scss";
+import "./BottomNavigation.scss";
 import { Link } from "react-router-dom";
-import { PageNamesConstants } from "../core/constant/page-name-constant";
+import { PageNamesConstants } from "../../core/constant/page-name-constant";
 
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
