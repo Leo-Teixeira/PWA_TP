@@ -6,13 +6,39 @@ import { useState, useEffect, useRef } from "react";
 const Camera = () => {
   const [camera, setCamera] = useState<boolean | null>(false);
   const [buttonText, setButtonText] = useState<string | null>("Allumer caméra");
-  const [status, setStatus] = useState<boolean | null>(false);
-  const [photos, setPhotos] = useState<string[] | []>([]);
+  const [online, setOnline] = useState<boolean | null>(navigator.onLine);
+  const [photos, setPhotos] = useState<
+    Map<string, { photo: string; online: boolean | null }>
+  >(new Map());
   const videoRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem("listPhoto", JSON.stringify(photos));
   }, [photos]);
+
+  useEffect(() => {
+    const handleOnline = () => {
+      setOnline(true);
+      setPhotos((prevPhotos) => {
+        const updatedPhotos = new Map(prevPhotos);
+        updatedPhotos.forEach((photo) => {
+          photo.online = true;
+        });
+        return updatedPhotos;
+      });
+    };
+
+    const handleOffline = () => {
+      setOnline(false);
+    };
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   const startCamera = async () => {
     if (camera == false) {
@@ -40,7 +66,14 @@ const Camera = () => {
       canvas.height = videoRef.current.videoHeight;
       canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
       const data = canvas.toDataURL("image/png");
-      setPhotos([...photos, data]);
+      setPhotos((prevPhotos) => {
+        const newPhotos = new Map(prevPhotos);
+        newPhotos.set(`photo_${prevPhotos.size + 1}`, {
+          photo: data,
+          online: online,
+        });
+        return newPhotos;
+      });
     }
   };
 
@@ -54,8 +87,12 @@ const Camera = () => {
         </Box>
       )}
       <Button onClick={startCamera}>{buttonText}</Button>
-      {photos &&
-        photos.map((photo) => <Box component="img" alt="image" src={photo} />)}
+      {Array.from(photos.entries()).map(([key, photo]) => (
+        <Box key={key}>
+          <Typography>Online: {photo.online ? "Yes" : "No"}</Typography>
+          <img src={photo.photo} alt={`Photo ${key}`} />
+        </Box>
+      ))}
     </Box>
   );
 };
