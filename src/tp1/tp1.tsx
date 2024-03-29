@@ -1,7 +1,13 @@
-import { Typography } from "@mui/material";
+import {Typography, Stack} from "@mui/material"
+import GeoLocalisation from "../components/GeoLocalisation/GeoLocalisation";
+import DownloadPwa from "../components/DownloadPwa/DownloadPwa";
 
 const Tp1 = () => {
-  return <Typography>Test tp1</Typography>;
-};
+    return <Stack spacing={4} direction="column">
+        <Typography>Test tp1</Typography>
+        <GeoLocalisation/>
+        <DownloadPwa />
+    </Stack>;
+}
 
-export default Tp1;
+export default Tp1
