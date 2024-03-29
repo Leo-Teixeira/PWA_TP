@@ -1,51 +1,48 @@
-import { Button } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import { useState, useEffect, useRef } from "react";
-import OnlineStatus from "@/components/global/OnlineStatus";
+import {Button} from "@mui/material"
+import {Typography} from "@mui/material"
+import {Box} from "@mui/system"
+import {useState, useEffect, useRef} from "react"
+import OnlineStatus from "@/components/global/OnlineStatus"
 
 const Camera = () => {
-  const [camera, setCamera] = useState<boolean | null>(false);
-  const [buttonText, setButtonText] = useState<string | null>("Allumer caméra");
-  const [photos, setPhotos] = useState<
-    Map<string, { photo: string; online: boolean | null }>
-  >(new Map());
-  const videoRef = useRef<any>();
-  const notification = document.querySelector("#notification");
-  const sendButton = document.querySelector("#send");
+	const {isOnline, whenOnline, whenOffline} = OnlineStatus()
+	const [camera, setCamera] = useState<boolean | null>(false)
+	const [buttonText, setButtonText] = useState<string | null>("Allumer caméra")
+	const [photos, setPhotos] = useState<Map<string, {photo: string; online: boolean | null}>>(new Map())
+	const videoRef = useRef<any>()
+	const notification = document.querySelector("#notification")
+	const sendButton = document.querySelector("#send")
 
-  useEffect(() => {
-    localStorage.setItem("listPhoto", JSON.stringify(photos));
-  }, [photos]);
+	useEffect(() => {
+		localStorage.setItem("listPhoto", JSON.stringify(photos))
+	}, [photos])
 
-  useEffect(() => {
-    const { isOnline, whenOnline, whenOffline } = OnlineStatus();
+	useEffect(() => {
+		const handleOnlineAction = () => {
+			// Actions à effectuer lorsque l'utilisateur est en ligne
+			console.log("En ligne")
+			setPhotos((prevPhotos) => {
+				const updatedPhotos = new Map(prevPhotos)
+				updatedPhotos.forEach((photo) => {
+					photo.online = true
+				})
+				return updatedPhotos
+			})
+		}
 
-    const handleOnlineAction = () => {
-        // Actions à effectuer lorsque l'utilisateur est en ligne
-        console.log('En ligne');
-        setPhotos((prevPhotos) => {
-            const updatedPhotos = new Map(prevPhotos);
-            updatedPhotos.forEach((photo) => {
-              photo.online = true;
-            });
-            return updatedPhotos;
-          });
-    };
+		const handleOfflineAction = () => {
+			// Actions à effectuer lorsque l'utilisateur est hors ligne
+			console.log("Hors ligne")
+		}
 
-    const handleOfflineAction = () => {
-        // Actions à effectuer lorsque l'utilisateur est hors ligne
-        console.log('Hors ligne');
-    };
+		whenOnline(handleOnlineAction)
+		whenOffline(handleOfflineAction)
 
-    whenOnline(handleOnlineAction);
-    whenOffline(handleOfflineAction);
-
-    return () => {
-        whenOnline(() => {});
-        whenOffline(() => {});
-    };
-  }, []);
+		return () => {
+			whenOnline(() => {})
+			whenOffline(() => {})
+		}
+	}, [])
 
   const sendNotification = async () => {
     if ("serviceWorker" in navigator) {
@@ -85,28 +82,28 @@ const Camera = () => {
   //   }
   // };
 
-  const startCamera = async () => {
-    if (camera == false) {
-      setCamera(true);
-      setButtonText("Eteindre la caméra");
-    } else {
-      setCamera(false);
-      setButtonText("Allumer caméra");
-    }
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: true,
-      });
-      if (videoRef.current && videoRef.current.srcObject){
-        videoRef.current.srcObject = stream;
-      }else{
-        // videoRef.current.srcObject = null;
-      }
-    } catch (error) {
-      console.error("Error accessing the camera:", error);
-    }
-  };
+	const startCamera = async () => {
+		if (camera == false) {
+			setCamera(true)
+			setButtonText("Eteindre la caméra")
+		} else {
+			setCamera(false)
+			setButtonText("Allumer caméra")
+		}
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({
+				audio: true,
+				video: true,
+			})
+			if (videoRef.current && videoRef.current.srcObject) {
+				videoRef.current.srcObject = stream
+			} else {
+				// videoRef.current.srcObject = null;
+			}
+		} catch (error) {
+			console.error("Error accessing the camera:", error)
+		}
+	}
 
   const takePhoto = async () => {
     if (videoRef.current) {
@@ -154,4 +151,4 @@ const Camera = () => {
   );
 };
 
-export default Camera;
+export default Camera
