@@ -2,11 +2,11 @@ import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
+import OnlineStatus from "@/components/global/OnlineStatus";
 
 const Camera = () => {
   const [camera, setCamera] = useState<boolean | null>(false);
   const [buttonText, setButtonText] = useState<string | null>("Allumer caméra");
-  const [online, setOnline] = useState<boolean | null>(navigator.onLine);
   const [photos, setPhotos] = useState<
     Map<string, { photo: string; online: boolean | null }>
   >(new Map());
@@ -19,26 +19,31 @@ const Camera = () => {
   }, [photos]);
 
   useEffect(() => {
-    const handleOnline = () => {
-      setOnline(true);
-      setPhotos((prevPhotos) => {
-        const updatedPhotos = new Map(prevPhotos);
-        updatedPhotos.forEach((photo) => {
-          photo.online = true;
-        });
-        return updatedPhotos;
-      });
+    const { isOnline, whenOnline, whenOffline } = OnlineStatus();
+
+    const handleOnlineAction = () => {
+        // Actions à effectuer lorsque l'utilisateur est en ligne
+        console.log('En ligne');
+        setPhotos((prevPhotos) => {
+            const updatedPhotos = new Map(prevPhotos);
+            updatedPhotos.forEach((photo) => {
+              photo.online = true;
+            });
+            return updatedPhotos;
+          });
     };
 
-    const handleOffline = () => {
-      setOnline(false);
+    const handleOfflineAction = () => {
+        // Actions à effectuer lorsque l'utilisateur est hors ligne
+        console.log('Hors ligne');
     };
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+
+    whenOnline(handleOnlineAction);
+    whenOffline(handleOfflineAction);
 
     return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
+        whenOnline(() => {});
+        whenOffline(() => {});
     };
   }, []);
 

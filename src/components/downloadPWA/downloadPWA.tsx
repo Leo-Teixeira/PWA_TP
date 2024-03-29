@@ -4,8 +4,6 @@ import {useState, useEffect} from "react"
 import {Button} from "@mui/material"
 import { Box } from "@mui/system"
 import DownloadingIcon from "@mui/icons-material/Downloading";
-// import window from "global/window"
-
 
 export default function DownloadPwa() {
     const [installable, setInstallable] = useState(false)
