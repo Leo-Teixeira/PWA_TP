@@ -1,3 +1,4 @@
 export class LayoutNamesConstants {
-  static Main = "main";
-}
+    static Main = "main";
+  }
+  
