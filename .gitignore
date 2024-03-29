@@ -46,6 +46,7 @@ next-env.d.ts
 *.sw?
 sw.js
 sw.js.map
-
+public/sw.js
+public/sw.js.map
 # PWA DEV
 /dev-dist
