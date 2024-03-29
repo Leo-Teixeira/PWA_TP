@@ -128,7 +128,7 @@ const Camera = () => {
           const newPhotos = new Map(prevPhotos);
           newPhotos.set(`photo_${prevPhotos.size + 1}`, {
             photo: data,
-            online: online,
+            online: isOnline,
           });
           return newPhotos;
         });
