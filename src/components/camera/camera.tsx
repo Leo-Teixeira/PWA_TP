@@ -2,41 +2,48 @@ import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
+import OnlineStatus from "@/components/global/OnlineStatus";
 
 const Camera = () => {
   const [camera, setCamera] = useState<boolean | null>(false);
   const [buttonText, setButtonText] = useState<string | null>("Allumer caméra");
-  const [online, setOnline] = useState<boolean | null>(navigator.onLine);
   const [photos, setPhotos] = useState<
     Map<string, { photo: string; online: boolean | null }>
   >(new Map());
-  const videoRef = useRef(null);
+  const videoRef = useRef<any>();
+  const notification = document.querySelector("#notification");
+  const sendButton = document.querySelector("#send");
 
   useEffect(() => {
     localStorage.setItem("listPhoto", JSON.stringify(photos));
   }, [photos]);
 
   useEffect(() => {
-    const handleOnline = () => {
-      setOnline(true);
-      setPhotos((prevPhotos) => {
-        const updatedPhotos = new Map(prevPhotos);
-        updatedPhotos.forEach((photo) => {
-          photo.online = true;
-        });
-        return updatedPhotos;
-      });
+    const { isOnline, whenOnline, whenOffline } = OnlineStatus();
+
+    const handleOnlineAction = () => {
+        // Actions à effectuer lorsque l'utilisateur est en ligne
+        console.log('En ligne');
+        setPhotos((prevPhotos) => {
+            const updatedPhotos = new Map(prevPhotos);
+            updatedPhotos.forEach((photo) => {
+              photo.online = true;
+            });
+            return updatedPhotos;
+          });
     };
 
-    const handleOffline = () => {
-      setOnline(false);
+    const handleOfflineAction = () => {
+        // Actions à effectuer lorsque l'utilisateur est hors ligne
+        console.log('Hors ligne');
     };
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+
+    whenOnline(handleOnlineAction);
+    whenOffline(handleOfflineAction);
 
     return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
+        whenOnline(() => {});
+        whenOffline(() => {});
     };
   }, []);
 
@@ -91,7 +98,11 @@ const Camera = () => {
         audio: true,
         video: true,
       });
-      videoRef.current.srcObject = stream;
+      if (videoRef.current && videoRef.current.srcObject){
+        videoRef.current.srcObject = stream;
+      }else{
+        // videoRef.current.srcObject = null;
+      }
     } catch (error) {
       console.error("Error accessing the camera:", error);
     }
@@ -103,18 +114,21 @@ const Camera = () => {
         await sendNotification();
       }
       const canvas = document.createElement("canvas");
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
-      const data = canvas.toDataURL("image/png");
-      setPhotos((prevPhotos) => {
-        const newPhotos = new Map(prevPhotos);
-        newPhotos.set(`photo_${prevPhotos.size + 1}`, {
-          photo: data,
-          online: online,
+      if (canvas && videoRef.current && videoRef.current.videoWidth && videoRef.current.videoHeight) {
+        canvas.width = videoRef.current.videoWidth;
+        canvas.height = videoRef.current.videoHeight;
+        canvas.getContext("2d")?.drawImage(videoRef.current, 0, 0);
+
+        const data = canvas.toDataURL("image/png");
+        setPhotos((prevPhotos) => {
+            const newPhotos = new Map(prevPhotos);
+            newPhotos.set(`photo_${prevPhotos.size + 1}`, {
+            photo: data,
+            online: online,
+            });
+            return newPhotos;
         });
-        return newPhotos;
-      });
+      }
     }
   };
 
@@ -130,12 +144,12 @@ const Camera = () => {
         </Box>
       )}
       <Button onClick={startCamera}>{buttonText}</Button>
-      {Array.from(photos.entries()).map(([key, photo]) => (
+      {photos && (Array.from(photos.entries()).map(([key, photo]) => (
         <Box key={key}>
           <Typography>Online: {photo.online ? "Yes" : "No"}</Typography>
           <img src={photo.photo} alt={`Photo ${key}`} />
         </Box>
-      ))}
+      )))}
     </Box>
   );
 };
