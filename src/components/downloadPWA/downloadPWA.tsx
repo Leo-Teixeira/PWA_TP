@@ -4,6 +4,7 @@ import {useState, useEffect} from "react"
 import {Button} from "@mui/material"
 import { Box } from "@mui/system"
 import DownloadingIcon from "@mui/icons-material/Downloading";
+// import window from "global/window"
 
 
 export default function DownloadPwa() {
@@ -11,28 +12,24 @@ export default function DownloadPwa() {
     const [installPrompt, setInstallPrompt] = useState<any>(null)
 
     useEffect(() => {
-        const handleBeforeInstallPrompt = (event : any) => {
-            // Gérer l'événement beforeinstallprompt ici
-            console.log('L\'événement beforeinstallprompt a été déclenché !');
-            //   event.preventDefault(); // Empêche le navigateur d'afficher la fenêtre d'installation par défaut
-            setInstallPrompt(event)
-            setInstallable(true)
-        };
-    
-        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    
-        return () => {
-          window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-        };
-      }, []);
-    
-
-    // window.addEventListener("beforeinstallprompt", (e) => {
-    //     console.log("beforeinstallprompt fired");
-    //     e.preventDefault()
-    //     console.log(e)
+        const isBrowser = typeof window !== "undefined"
+        if (isBrowser) {
+            const handleBeforeInstallPrompt = (event : any) => {
+                // Gérer l'événement beforeinstallprompt ici
+                console.log('L\'événement beforeinstallprompt a été déclenché !');
+                //   event.preventDefault(); // Empêche le navigateur d'afficher la fenêtre d'installation par défaut
+                setInstallPrompt(event)
+                setInstallable(true)
+            };
         
-    // })
+            window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        
+            return () => {
+              window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+            };
+        }
+        
+      }, []);
 
     const install = () => {
         if (installPrompt) {

@@ -10,7 +10,7 @@ const Camera = () => {
   const [photos, setPhotos] = useState<
     Map<string, { photo: string; online: boolean | null }>
   >(new Map());
-  const videoRef = useRef(null);
+  const videoRef = useRef<any>();
 
   useEffect(() => {
     localStorage.setItem("listPhoto", JSON.stringify(photos));
@@ -53,7 +53,11 @@ const Camera = () => {
         audio: true,
         video: true,
       });
-      videoRef.current.srcObject = stream;
+      if (videoRef.current && videoRef.current.srcObject){
+        videoRef.current.srcObject = stream;
+      }else{
+        // videoRef.current.srcObject = null;
+      }
     } catch (error) {
       console.error("Error accessing the camera:", error);
     }
@@ -62,18 +66,21 @@ const Camera = () => {
   const takePhoto = () => {
     if (videoRef.current) {
       const canvas = document.createElement("canvas");
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
-      const data = canvas.toDataURL("image/png");
-      setPhotos((prevPhotos) => {
-        const newPhotos = new Map(prevPhotos);
-        newPhotos.set(`photo_${prevPhotos.size + 1}`, {
-          photo: data,
-          online: online,
+      if (canvas && videoRef.current && videoRef.current.videoWidth && videoRef.current.videoHeight) {
+        canvas.width = videoRef.current.videoWidth;
+        canvas.height = videoRef.current.videoHeight;
+        canvas.getContext("2d")?.drawImage(videoRef.current, 0, 0);
+
+        const data = canvas.toDataURL("image/png");
+        setPhotos((prevPhotos) => {
+            const newPhotos = new Map(prevPhotos);
+            newPhotos.set(`photo_${prevPhotos.size + 1}`, {
+            photo: data,
+            online: online,
+            });
+            return newPhotos;
         });
-        return newPhotos;
-      });
+      }
     }
   };
 
@@ -87,12 +94,12 @@ const Camera = () => {
         </Box>
       )}
       <Button onClick={startCamera}>{buttonText}</Button>
-      {Array.from(photos.entries()).map(([key, photo]) => (
+      {photos && (Array.from(photos.entries()).map(([key, photo]) => (
         <Box key={key}>
           <Typography>Online: {photo.online ? "Yes" : "No"}</Typography>
           <img src={photo.photo} alt={`Photo ${key}`} />
         </Box>
-      ))}
+      )))}
     </Box>
   );
 };
