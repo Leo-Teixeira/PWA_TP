@@ -17,36 +17,21 @@ export default function SimpleBottomNavigation() {
 
 	// Au clique d'un bouton de la bottom navigation, on change la valeur de la bottom navigation
 
-  return (
-    <Box className="BottomNavigation">
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}>
-        <BottomNavigationAction
-          label="TP 1"
-          value="tp_1"
-          icon={<PhotoCameraIcon />}
-          component={Link}
-          to={PageNamesConstants.Tp1.path}
-        />
-        <BottomNavigationAction
-          label="TP 2"
-          value="tp_2"
-          icon={<LanguageIcon />}
-          component={Link}
-          to={PageNamesConstants.Tp2.path}
-        />
-        <BottomNavigationAction
-          label="TP 3"
-          value="tp_3"
-          icon={<GroupIcon />}
-          component={Link}
-          to={PageNamesConstants.Tp3.path}
-        />
-      </BottomNavigation>
-    </Box>
-  );
+	return (
+        <header>
+            <Box className="BottomNavigation">
+                <BottomNavigation
+                    showLabels
+                    value={value}
+                    onChange={(event, newValue) => {
+                        setValue(newValue)
+                        router.push(newValue)
+                    }}>
+                    <BottomNavigationAction label="TP 1" icon={<PhotoCameraIcon />} value={PageNamesConstants.Tp1.path} />
+                    <BottomNavigationAction label="TP 2" icon={<LanguageIcon />} value={PageNamesConstants.Tp2.path} />
+                    <BottomNavigationAction label="TP 3" icon={<GroupIcon />} value={PageNamesConstants.Tp3.path} />
+                </BottomNavigation>
+            </Box>
+        </header>
+	)
 }
