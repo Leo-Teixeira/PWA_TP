@@ -20,7 +20,7 @@ export default function MapElement({latitude, longitude, showMarker} : {latitude
     // const positions = React.useState({ latitude: latitude, longitude: longitude })
     // const zoom = React.useState<any>(13)
 	return (
-		<MapContainer center={[latitude, longitude]} zoom={13} scrollWheelZoom={true}>
+        <MapContainer center={[latitude, longitude]} zoom={13} scrollWheelZoom={true}>
 			<TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <LocationMarker positions={[latitude, longitude]} showMarker={showMarker} />
 		</MapContainer>
