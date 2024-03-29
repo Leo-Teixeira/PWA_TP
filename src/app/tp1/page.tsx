@@ -1,6 +1,8 @@
+'use client'
+
 import {Typography, Stack} from "@mui/material"
-import GeoLocalisation from "../components/GeoLocalisation/GeoLocalisation";
-import DownloadPwa from "../components/DownloadPwa/DownloadPwa";
+import GeoLocalisation from "@/components/GeoLocalisation/GeoLocalisation"
+import DownloadPwa from "@/components/DownloadPwa/DownloadPwa";
 
 const Tp1 = () => {
     return <Stack spacing={4} direction="column">

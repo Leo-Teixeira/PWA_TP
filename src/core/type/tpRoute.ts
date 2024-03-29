@@ -1,6 +1,7 @@
 export type TpRoute = {
-  path: string;
-  name: string;
-  component?: any;
-  layout?: string;
-};
+    path: string;
+    name: string;
+    component?: any;
+    layout?: string;
+  };
+  

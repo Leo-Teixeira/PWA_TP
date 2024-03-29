@@ -3,7 +3,7 @@ import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching"
-import MapElement from "../MapElement/MapElement.tsx"
+import MapElement from "@/components/MapElement/MapElement"
 
 export default function GeoLocalisation() {
 	const [positions, setPositions] = useState({ latitude: 48.86, longitude: 2.337 })
