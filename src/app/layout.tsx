@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 // import "./globals.scss";
 import BottomNavigation from "@/layout/BottomNavigation/BottomNavigation";
-
+import { useEffect } from "react";
+import App from "./_app";
 
 const APP_NAME = "Plac PWA";
 const APP_DEFAULT_TITLE = "Plac PWA";
@@ -58,10 +59,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-        <body className={inter.className}>
+      <body className={inter.className}>
         <main>{children}</main>
-        <BottomNavigation />
-        </body>
+        <App />
+      </body>
     </html>
   );
 }
