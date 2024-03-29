@@ -1,14 +1,30 @@
-"use client"
+"use client";
 
-import Image from "next/image"
+import Image from "next/image";
 // import from "index.scss"
-import BottomNavigation from "@/layout/BottomNavigation/BottomNavigation"
+import BottomNavigation from "@/layout/BottomNavigation/BottomNavigation";
 
 export default function Home() {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("/sw.js").then(
+        function (registration) {
+          console.log(
+            "Service Worker registration successful with scope: ",
+            registration.scope
+          );
+        },
+        function (err) {
+          console.log("Service Worker registration failed: ", err);
+        }
+      );
+    });
+  }
+  
 
-	return (
-		<main>
-			{/* <div className={styles.description}>
+  return (
+    <main>
+      {/* <div className={styles.description}>
 				<p>
 					Get started by editing&nbsp;
 					<code className={styles.code}>src/app/page.tsx</code>
@@ -53,7 +69,6 @@ export default function Home() {
 					<p>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
 				</a>
 			</div> */}
-            
-		</main>
-	)
+    </main>
+  );
 }
