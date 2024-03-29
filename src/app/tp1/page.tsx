@@ -1,15 +1,18 @@
-'use client'
+"use client";
 
-import {Typography, Stack} from "@mui/material"
-import GeoLocalisation from "@/components/GeoLocalisation/GeoLocalisation"
-import DownloadPwa from "@/components/downloadPWA/downloadPwa";
+import { Typography, Stack } from "@mui/material";
+import GeoLocalisation from "@/components/GeoLocalisation/GeoLocalisation";
+import DownloadPwa from "@/components/DownloadPwa/DownloadPwa";
+import Camera from "@/components/camera/camera";
 
 const Tp1 = () => {
-    return <Stack spacing={4} direction="column">
-        <Typography>Test tp1</Typography>
-        <GeoLocalisation/>
-        <DownloadPwa />
-    </Stack>;
-}
+  return (
+    <Stack spacing={4} direction="column">
+      <Camera />
+      <GeoLocalisation />
+      <DownloadPwa />
+    </Stack>
+  );
+};
 
-export default Tp1
+export default Tp1;
