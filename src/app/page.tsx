@@ -1,13 +1,13 @@
 "use client"
 
 import Image from "next/image"
-import styles from "./index.scss"
+// import from "index.scss"
 import BottomNavigation from "@/layout/BottomNavigation/BottomNavigation"
 
 export default function Home() {
 
 	return (
-		<main className={styles.main}>
+		<main>
 			{/* <div className={styles.description}>
 				<p>
 					Get started by editing&nbsp;

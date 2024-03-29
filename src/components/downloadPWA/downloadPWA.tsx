@@ -1,10 +1,12 @@
+"use client"
+
 import {useState, useEffect} from "react"
 import {Button} from "@mui/material"
 import { Box } from "@mui/system"
-import DownloadingIcon from '@mui/icons-material/Downloading';
+import DownloadingIcon from "@mui/icons-material/Downloading";
 
 
-export default function DownloadPWA() {
+export default function DownloadPwa() {
     const [installable, setInstallable] = useState(false)
     const [installPrompt, setInstallPrompt] = useState<any>(null)
 
