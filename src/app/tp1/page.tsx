@@ -4,10 +4,12 @@ import { Typography, Stack } from "@mui/material";
 import GeoLocalisation from "@/components/GeoLocalisation/GeoLocalisation";
 import DownloadPwa from "@/components/DownloadPwa/DownloadPwa";
 import Camera from "@/components/camera/camera";
+import IsOnligne from "@/components/Buttons/IsOnligne";
 
 const Tp1 = () => {
   return (
     <Stack spacing={4} direction="column">
+      <IsOnligne />
       <Camera />
       <GeoLocalisation />
       <DownloadPwa />
