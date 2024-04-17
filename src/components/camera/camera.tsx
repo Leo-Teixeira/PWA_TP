@@ -47,8 +47,8 @@ const Camera = () => {
   }, []);
 
   const sendNotification = async () => {
-    if ("serviceWorker" in navigator) {
-      await navigator.serviceWorker.ready;
+    if (navigator && "serviceWorker" in navigator) {
+        await navigator.serviceWorker.ready;
     }
 
     if (Notification.permission === "granted") {

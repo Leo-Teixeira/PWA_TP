@@ -22,5 +22,7 @@ export default function App() {
     }
   }, []);
 
-  return <BottomNavigation />;
+    return (
+        <BottomNavigation></BottomNavigation>
+    );
 }
