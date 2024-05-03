@@ -1,4 +1,4 @@
-import { BottomNavigation } from "@mui/material";
+// import { BottomNavigation } from "@mui/material";
 import { useEffect } from "react";
 
 export default function App() {
@@ -11,6 +11,7 @@ export default function App() {
       window
     ) {
       window.addEventListener("load", function () {
+        console.log("Service Worker registration successful with scope: ");
         navigator.serviceWorker.register("/service.worker.js").then(
           function (registration) {
             console.log(
@@ -26,5 +27,5 @@ export default function App() {
     }
   }, []);
 
-  return <BottomNavigation></BottomNavigation>;
+  return <></>;
 }
