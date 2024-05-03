@@ -50,3 +50,8 @@ public/sw.js
 public/sw.js.map
 # PWA DEV
 /dev-dist
+
+
+# SW
+public/sw.js
+public/sw.js.map
