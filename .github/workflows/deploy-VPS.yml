@@ -26,5 +26,5 @@ jobs:
           cd ~/app/PWA_TP
           git pull origin prod
           git status
-          npm install --only=prod
+          npm install --omit=dev
           npm run build
