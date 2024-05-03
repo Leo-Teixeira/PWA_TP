@@ -13,14 +13,11 @@ const Camera = () => {
     Map<string, { photo: string; online: boolean | null }>
   >(new Map());
   const videoRef = useRef<any>();
-<<<<<<< Updated upstream
 <<<<<<< HEAD
 =======
 //   const notification = document.querySelector("#notification");
 //   const sendButton = document.querySelector("#send");
 >>>>>>> origin/main
-=======
->>>>>>> Stashed changes
 
   useEffect(() => {
     localStorage.setItem("listPhoto", JSON.stringify(photos));

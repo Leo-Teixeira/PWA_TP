@@ -12,15 +12,11 @@ const Tp1 = () => {
       <IsOnline />
       <Camera />
       {/* <GeoLocalisation /> */}
-<<<<<<< Updated upstream
 <<<<<<< HEAD
       <DownloadPwa />
 =======
       {/* <DownloadPwa /> */}
 >>>>>>> origin/main
-=======
-      <DownloadPwa />
->>>>>>> Stashed changes
     </Stack>
   );
 };
