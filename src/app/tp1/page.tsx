@@ -2,9 +2,9 @@
 
 import { Typography, Stack } from "@mui/material";
 import GeoLocalisation from "@/components/GeoLocalisation/GeoLocalisation";
-import DownloadPwa from "@/components/DownloadPwa/DownloadPwa";
 import Camera from "@/components/camera/camera";
 import IsOnligne from "@/components/Buttons/IsOnligne";
+import DownloadPwa from "@/components/downloadPWA/downloadPWA";
 
 const Tp1 = () => {
   return (
@@ -12,7 +12,7 @@ const Tp1 = () => {
       <IsOnligne />
       <Camera />
       <GeoLocalisation />
-      <DownloadPwa />
+      {/* <DownloadPwa /> */}
     </Stack>
   );
 };

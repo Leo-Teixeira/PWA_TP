@@ -5,9 +5,9 @@ import { useEffect } from "react";
 
 export default function App() {
   useEffect(() => {
-    if (navigator && "serviceWorker" in navigator) {
+    if (typeof navigator !== 'undefined' && navigator && "serviceWorker" in navigator) {
       window.addEventListener("load", function () {
-        navigator.serviceWorker.register("/sw.js").then(
+        navigator.serviceWorker.register("/service.worker.js").then(
           function (registration) {
             console.log(
               "Service Worker registration successful with scope: ",
