@@ -24,7 +24,7 @@ jobs:
         port: 22
         script: |
           cd ~/app/PWA_TP
-          git pull origin prod
+          git fetch origin prod && git reset --hard origin/prod
           git status
           npm install --omit=dev
           npm run build
