@@ -1,11 +1,15 @@
-"use client";
-
 import { BottomNavigation } from "@mui/material";
 import { useEffect } from "react";
 
 export default function App() {
   useEffect(() => {
-    if (typeof navigator !== 'undefined' && navigator && "serviceWorker" in navigator) {
+    if (
+      typeof navigator !== "undefined" &&
+      navigator &&
+      "serviceWorker" in navigator &&
+      typeof window !== "undefined" &&
+      window
+    ) {
       window.addEventListener("load", function () {
         navigator.serviceWorker.register("/service.worker.js").then(
           function (registration) {
@@ -22,7 +26,5 @@ export default function App() {
     }
   }, []);
 
-    return (
-        <BottomNavigation></BottomNavigation>
-    );
+  return <BottomNavigation></BottomNavigation>;
 }
