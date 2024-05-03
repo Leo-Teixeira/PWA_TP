@@ -1,9 +1,9 @@
-import type {Metadata, Viewport} from "next"
-import {Inter} from "next/font/google"
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.scss";
-import BottomNavigation from "@/layout/AppNavigation/AppNavigation"
-import {useEffect} from "react"
-import App from "./_app"
+import BottomNavigation from "@/layout/AppNavigation/AppNavigation";
+import { useEffect } from "react";
+import App from "./_app";
 
 const APP_NAME = "Plac PWA";
 const APP_DEFAULT_TITLE = "Plac PWA";
