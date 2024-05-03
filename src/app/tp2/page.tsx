@@ -1,9 +1,14 @@
 'use client'
 
-import { Typography } from "@mui/material";
+import Battery from "@/components/battery/battery";
+import { Stack, Typography } from "@mui/material";
 
 const Tp2 = () => {
-  return <Typography>Test tp2</Typography>;
+  return (
+    <Stack spacing={4} direction="column">
+      <Battery/>
+    </Stack>
+  )
 };
 
 export default Tp2;
