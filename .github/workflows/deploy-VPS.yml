@@ -4,7 +4,7 @@ name: Deploy PWA on VPS
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main ]
+    branches: [ prod ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,7 +24,7 @@ jobs:
         port: 22
         script: |
           cd ~/app/PWA_TP
-          git pull origin main
+          git pull origin prod
           git status
           npm install --only=prod
           npm run build
