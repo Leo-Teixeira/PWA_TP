@@ -6,6 +6,13 @@ const nextConfig = {
 }
 
 const nextConfigFunction = async (phase) => {
+	if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
+		const withPWA = (await import("@ducanh2912/next-pwa")).default({
+			dest: "public",
+            reloadOnOnline: false,
+		})
+		return withPWA(nextConfig)
+	}
 	return nextConfig
 }
 
