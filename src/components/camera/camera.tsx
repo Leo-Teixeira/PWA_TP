@@ -48,11 +48,11 @@ const Camera = () => {
 
   const sendNotification = async () => {
     if (navigator && "serviceWorker" in navigator) {
-        await navigator.serviceWorker.ready;
+      await navigator.serviceWorker.ready;
     }
 
     if (Notification.permission === "granted") {
-      await showNotification("sah");
+      await showNotification("sah quel plaisir de jouir");
     } else {
       if (Notification.permission !== "denied") {
         const permission = await Notification.requestPermission();
@@ -74,16 +74,6 @@ const Camera = () => {
     return new window.Notification(title);
   };
 
-  // const showNotification = async () => {
-  //   const registration = await navigator.serviceWorker.getRegistration();
-  //   const title = "What PWA Can Do Today";
-  //   if ("showNotification" in registration) {
-  //     window.showNotification(title);
-  //   } else {
-  //     new Notification(title);
-  //   }
-  // };
-
   const startCamera = async () => {
     if (camera == false) {
       setCamera(true);
@@ -94,13 +84,13 @@ const Camera = () => {
     }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
+        audio: false,
         video: true,
       });
-      if (videoRef.current && videoRef.current.srcObject) {
+      if (videoRef.current) {
         videoRef.current.srcObject = stream;
       } else {
-        // videoRef.current.srcObject = null;
+        videoRef.current.srcObject = null;
       }
     } catch (error) {
       console.error("Error accessing the camera:", error);
