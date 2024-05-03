@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-// import from "index.scss"
-import BottomNavigation from "@/layout/BottomNavigation/BottomNavigation";
+// import "./index.scss"
+import BottomNavigation from "@/layout/AppNavigation/AppNavigation";
 
 export default function Home() {
   if (typeof navigator !== 'undefined' && navigator && "serviceWorker" in navigator) {
