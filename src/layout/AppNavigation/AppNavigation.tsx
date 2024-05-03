@@ -10,6 +10,7 @@ import LanguageIcon from "@mui/icons-material/Language"
 import "./AppNavigation.scss"
 import {useRouter} from "next/navigation"
 import {PageNamesConstants} from "../../core/constant/page-name-constant"
+import { Typography } from "@mui/material"
 
 export default function SimpleBottomNavigation() {
 	const router = useRouter()
@@ -19,7 +20,9 @@ export default function SimpleBottomNavigation() {
     // sinon on return la aside navigation
     return (
         <header className="AppNavigation">
-            <h1 className="logo">Logo Plac</h1>
+            <Typography className="logo" variant="h1" component="h1">
+            Logo Plac
+            </Typography>
             <BottomNavigation
                 showLabels
                 value={value}
