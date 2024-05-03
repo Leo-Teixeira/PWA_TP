@@ -27,6 +27,7 @@ const Camera = () => {
         const updatedPhotos = new Map(prevPhotos);
         updatedPhotos.forEach((photo) => {
           photo.online = true;
+          showNotification()
         });
         return updatedPhotos;
       });
@@ -44,34 +45,25 @@ const Camera = () => {
       whenOnline(() => {});
       whenOffline(() => {});
     };
-  }, []);
+  }, [isOnline]);
 
-  const sendNotification = async () => {
-    if (navigator && "serviceWorker" in navigator) {
-      await navigator.serviceWorker.ready;
-    }
-
-    if (Notification.permission === "granted") {
-      await showNotification("sah quel plaisir de jouir");
-    } else {
-      if (Notification.permission !== "denied") {
-        const permission = await Notification.requestPermission();
-
-        if (permission === "granted") {
-          await showNotification("sah");
+  const showNotification = async () => {
+    if (("Notification" in window)) {
+      Notification.requestPermission().then((result) => {
+        if (result === "granted") {
+          new Notification('Notification', {
+            body: "sah quel plaisir"
+          })
         }
-      }
+        else {
+          throw new Error("Permission denied");
+        }
+      })
     }
-  };
-
-  const showNotification = async (title: string) => {
-    if (!("Notification" in window)) {
+    else {
       throw new Error("Notification not supported");
     }
-    if (window.Notification.permission !== "granted") {
-      throw new Error("Permission not granted for Notification");
-    }
-    return new window.Notification(title);
+
   };
 
   const startCamera = async () => {
@@ -99,9 +91,6 @@ const Camera = () => {
 
   const takePhoto = async () => {
     if (videoRef.current) {
-      if (isOnline) {
-        await sendNotification();
-      }
       const canvas = document.createElement("canvas");
       if (
         canvas &&
@@ -122,6 +111,9 @@ const Camera = () => {
           });
           return newPhotos;
         });
+      }
+      if (isOnline) {
+        showNotification();
       }
     }
   };

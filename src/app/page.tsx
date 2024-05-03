@@ -5,9 +5,9 @@ import Image from "next/image";
 import BottomNavigation from "@/layout/BottomNavigation/BottomNavigation";
 
 export default function Home() {
-  if (typeof navigator !== 'undefined' && "serviceWorker" in navigator) {
+  if (typeof navigator !== 'undefined' && navigator && "serviceWorker" in navigator) {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("/sw.js").then(
+      navigator.serviceWorker.register("/service.worker.js").then(
         function (registration) {
           console.log(
             "Service Worker registration successful with scope: ",
