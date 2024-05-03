@@ -12,7 +12,7 @@ import {useRouter} from "next/navigation"
 import {PageNamesConstants} from "../../core/constant/page-name-constant"
 import { Typography } from "@mui/material"
 
-export default function SimpleBottomNavigation() {
+export default function AppNavigation() {
 	const router = useRouter()
 	const [value, setValue] = React.useState(0)
 	// Au clique d'un bouton de la bottom navigation, on change la valeur de la bottom navigation
