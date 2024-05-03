@@ -23,11 +23,13 @@ const IsOnline = () => {
     
     return (
         <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
             open={open}
             onClose={handleClose}
-            autoHideDuration={5000}
+            autoHideDuration={2000}
         >
             <Alert
+                onClose={handleClose}
                 icon={isOnline ? <WifiIcon fontSize="inherit" /> : <WifiOffIcon fontSize="inherit" /> }
                 severity={isOnline ? "success" : "error"}
             >

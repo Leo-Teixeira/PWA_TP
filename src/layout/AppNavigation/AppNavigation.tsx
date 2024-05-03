@@ -20,7 +20,7 @@ export default function SimpleBottomNavigation() {
     // sinon on return la aside navigation
     return (
         <header className="AppNavigation">
-            <Typography className="logo" variant="h1" component="h1">
+            <Typography className="logo" variant="h5" component="h1">
             Logo Plac
             </Typography>
             <BottomNavigation

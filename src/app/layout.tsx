@@ -4,6 +4,7 @@ import "./globals.scss";
 import BottomNavigation from "@/layout/AppNavigation/AppNavigation"
 import {useEffect} from "react"
 import App from "./_app"
+import IsOnline from "@/components/Buttons/IsOnline";
 
 const APP_NAME = "Plac PWA"
 const APP_DEFAULT_TITLE = "Plac PWA"
@@ -61,6 +62,7 @@ export default function RootLayout({
 		<html lang="fr">
 			<body className={inter.className}>
 				<main>{children}</main>
+                <IsOnline />
 				<BottomNavigation />
 			</body>
 		</html>
