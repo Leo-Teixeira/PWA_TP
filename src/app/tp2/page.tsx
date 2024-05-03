@@ -1,12 +1,12 @@
 'use client'
 
-import Battery from "@/components/battery/battery";
+import BatteryStatus from "@/components/battery/battery";
 import { Stack, Typography } from "@mui/material";
 
 const Tp2 = () => {
   return (
     <Stack spacing={4} direction="column">
-      <Battery/>
+      <BatteryStatus/>
     </Stack>
   )
 };

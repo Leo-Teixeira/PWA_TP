@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
-import BottomNavigation from "@/layout/AppNavigation/AppNavigation"
+import AppNavigation from "@/layout/AppNavigation/AppNavigation"
 import {useEffect} from "react"
 import App from "./_app"
 import IsOnline from "@/components/Buttons/IsOnline";
@@ -63,7 +63,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<main>{children}</main>
                 <IsOnline />
-				<BottomNavigation />
+				<AppNavigation />
 			</body>
 		</html>
 	)
