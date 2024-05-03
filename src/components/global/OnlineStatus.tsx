@@ -20,15 +20,7 @@ const OnlineStatus = () => {
 	}, [])
 
 	return {
-		isOnline,
-		whenOnline: (callback: any) => {
-            console.log("isOnline", isOnline);
-			if (isOnline) callback()
-		},
-		whenOffline: (callback: any) => {
-            console.log("isOnline", isOnline);
-			if (!isOnline) callback()
-		},
+		isOnline
 	}
 }
 

@@ -3,15 +3,15 @@
 import { Typography, Stack } from "@mui/material";
 import GeoLocalisation from "@/components/GeoLocalisation/GeoLocalisation";
 import Camera from "@/components/camera/camera";
-import IsOnligne from "@/components/Buttons/IsOnligne";
+import IsOnline from "@/components/Buttons/IsOnline";
 import DownloadPwa from "@/components/downloadPWA/downloadPWA";
 
 const Tp1 = () => {
   return (
     <Stack spacing={4} direction="column">
-      <IsOnligne />
+      <IsOnline />
       <Camera />
-      <GeoLocalisation />
+      {/* <GeoLocalisation /> */}
       {/* <DownloadPwa /> */}
     </Stack>
   );
