@@ -12,8 +12,6 @@ const Camera = () => {
     Map<string, { photo: string; online: boolean | null }>
   >(new Map());
   const videoRef = useRef<any>();
-  const notification = document.querySelector("#notification");
-  const sendButton = document.querySelector("#send");
 
   useEffect(() => {
     localStorage.setItem("listPhoto", JSON.stringify(photos));
@@ -22,12 +20,11 @@ const Camera = () => {
   useEffect(() => {
     const handleOnlineAction = () => {
       // Actions à effectuer lorsque l'utilisateur est en ligne
-      console.log("En ligne");
       setPhotos((prevPhotos) => {
         const updatedPhotos = new Map(prevPhotos);
         updatedPhotos.forEach((photo) => {
           photo.online = true;
-          showNotification()
+          // showNotification()
         });
         return updatedPhotos;
       });
@@ -47,24 +44,28 @@ const Camera = () => {
     };
   }, [isOnline]);
 
-  const showNotification = async () => {
-    if (("Notification" in window)) {
-      Notification.requestPermission().then((result) => {
-        if (result === "granted") {
-          new Notification('Notification', {
-            body: "sah quel plaisir"
-          })
-        }
-        else {
-          throw new Error("Permission denied");
-        }
-      })
-    }
-    else {
-      throw new Error("Notification not supported");
-    }
+  // useEffect(() => {
+  //   const showNotification = async () => {
+  //     if (typeof window !== 'undefined' && window && "Notification" in window) {
+  //       Notification.requestPermission().then((result) => {
+  //         if (result === "granted") {
+  //           new Notification('Notification', {
+  //             body: "sah quel plaisir"
+  //           })
+  //         }
+  //         else {
+  //           throw new Error("Permission denied");
+  //         }
+  //       })
+  //     }
+  //     else {
+  //       throw new Error("Notification not supported");
+  //     }
+  //   };
 
-  };
+  //   showNotification();
+  // })
+
 
   const startCamera = async () => {
     if (camera == false) {
@@ -113,7 +114,7 @@ const Camera = () => {
         });
       }
       if (isOnline) {
-        showNotification();
+        // showNotification();
       }
     }
   };

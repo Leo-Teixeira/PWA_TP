@@ -11,8 +11,8 @@ const Tp1 = () => {
     <Stack spacing={4} direction="column">
       <IsOnligne />
       <Camera />
-      <GeoLocalisation />
-      {/* <DownloadPwa /> */}
+      {/* <GeoLocalisation /> */}
+      <DownloadPwa />
     </Stack>
   );
 };

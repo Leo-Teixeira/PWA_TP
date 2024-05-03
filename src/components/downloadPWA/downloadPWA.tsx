@@ -10,7 +10,7 @@ export default function DownloadPwa() {
     const [installPrompt, setInstallPrompt] = useState<any>(null)
 
     useEffect(() => {
-        const isBrowser = typeof window !== "undefined"
+        const isBrowser = typeof window !== "undefined" && window
         if (isBrowser) {
             const handleBeforeInstallPrompt = (event : any) => {
                 // Gérer l'événement beforeinstallprompt ici
