@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -5,18 +6,24 @@ import { useState, useEffect, useRef } from "react";
 import OnlineStatus from "@/components/global/OnlineStatus";
 
 const Camera = () => {
-  const { isOnline, whenOnline, whenOffline } = OnlineStatus();
+  const { isOnline } = OnlineStatus();
   const [camera, setCamera] = useState<boolean | null>(false);
   const [buttonText, setButtonText] = useState<string | null>("Allumer caméra");
   const [photos, setPhotos] = useState<
     Map<string, { photo: string; online: boolean | null }>
   >(new Map());
   const videoRef = useRef<any>();
+<<<<<<< HEAD
+=======
+//   const notification = document.querySelector("#notification");
+//   const sendButton = document.querySelector("#send");
+>>>>>>> origin/main
 
   useEffect(() => {
     localStorage.setItem("listPhoto", JSON.stringify(photos));
   }, [photos]);
 
+<<<<<<< HEAD
   useEffect(() => {
     const handleOnlineAction = () => {
       // Actions à effectuer lorsque l'utilisateur est en ligne
@@ -29,20 +36,35 @@ const Camera = () => {
         return updatedPhotos;
       });
     };
+=======
+//   useEffect(() => {
+//     const handleOnlineAction = () => {
+//       // Actions à effectuer lorsque l'utilisateur est en ligne
+//       console.log("En ligne");
+//       setPhotos((prevPhotos) => {
+//         const updatedPhotos = new Map(prevPhotos);
+//         updatedPhotos.forEach((photo) => {
+//           photo.online = true;
+//           showNotification()
+//         });
+//         return updatedPhotos;
+//       });
+//     };
+>>>>>>> origin/main
 
-    const handleOfflineAction = () => {
-      // Actions à effectuer lorsque l'utilisateur est hors ligne
-      console.log("Hors ligne");
-    };
+//     const handleOfflineAction = () => {
+//       // Actions à effectuer lorsque l'utilisateur est hors ligne
+//       console.log("Hors ligne");
+//     };
 
-    whenOnline(handleOnlineAction);
-    whenOffline(handleOfflineAction);
+//     whenOnline(handleOnlineAction);
+//     whenOffline(handleOfflineAction);
 
-    return () => {
-      whenOnline(() => {});
-      whenOffline(() => {});
-    };
-  }, [isOnline]);
+//     return () => {
+//       whenOnline(() => {});
+//       whenOffline(() => {});
+//     };
+//   }, [isOnline]);
 
   // useEffect(() => {
   //   const showNotification = async () => {
