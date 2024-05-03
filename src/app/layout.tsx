@@ -1,7 +1,7 @@
 import type {Metadata, Viewport} from "next"
 import {Inter} from "next/font/google"
-// import "./globals.scss";
-import BottomNavigation from "@/layout/BottomNavigation/BottomNavigation"
+import "./globals.scss";
+import BottomNavigation from "@/layout/AppNavigation/AppNavigation"
 import {useEffect} from "react"
 import App from "./_app"
 

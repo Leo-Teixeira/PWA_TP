@@ -105,3 +105,55 @@ a {
     color-scheme: dark;
   }
 } */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     color: #213547;
+//     background-color: #eeedf3;
+//   }
+//   a:hover {
+//     color: #747bff;
+//   }
+//   button {
+//     background-color: #f9f9f9;
+//   }
+// }
+
+// @media (prefers-color-scheme: dark) {
+//     :root {
+//       color: #FFF;
+//       background-color: #2b2b2b;
+//     }
+//     a:hover {
+//       color: #747bff;
+//     }
+//     button {
+//       background-color: #353434;
+//     }
+//   }
+
+body {
+    color: #213547;
+    background-color: #fcfcfc;
+}
+a:hover {
+    color: #747bff;
+}
+button {
+    background-color: #f9f9f9;
+}
+
+main {
+    padding: 2rem;
+    min-height: 100vh;
+
+    @media screen and (min-width: 768px){
+        padding-left: 16rem;
+    }
+}
