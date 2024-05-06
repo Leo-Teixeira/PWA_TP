@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
-import OnlineStatus from "@/components/global/OnlineStatus";
+import OnlineStatus from "../../components/global/OnlineStatus";
 
 const Camera = () => {
   const { isOnline } = OnlineStatus();

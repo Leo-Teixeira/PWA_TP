@@ -1,6 +1,6 @@
 "use client"
 import {useState, useEffect} from "react"
-import OnlineStatus from "@/components/global/OnlineStatus";
+import OnlineStatus from "../../components/global/OnlineStatus";
 import { Alert, Box, Button, Snackbar } from "@mui/material";
 import WifiOffIcon from '@mui/icons-material/WifiOff';
 import WifiIcon from '@mui/icons-material/Wifi';

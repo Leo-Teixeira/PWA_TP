@@ -1,6 +1,6 @@
 'use client'
 
-import BatteryStatus from "@/components/battery/battery";
+import BatteryStatus from "../../components/battery/battery";
 import { Stack, Typography } from "@mui/material";
 
 const Tp2 = () => {
