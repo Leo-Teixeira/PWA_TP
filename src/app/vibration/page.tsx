@@ -7,14 +7,16 @@ const VibrationPage = () => {
     if (typeof navigator !== "undefined" &&
     navigator &&
     "vibration" in navigator) {
-      navigator.vibrate(2000)
+      navigator.vibrate([
+        100, 30, 100, 30, 100, 30, 200, 30, 200, 30, 200, 30, 100, 30, 100, 30, 100,
+      ])
     }
   }
 
   return (
-    <>
+    <Box>
       <Button variant="contained" onClick={handleVibration}>Vibration téléphone</Button>
-    </>
+    </Box>
   );
 };
 

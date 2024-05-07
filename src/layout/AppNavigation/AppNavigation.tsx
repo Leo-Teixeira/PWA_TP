@@ -146,7 +146,7 @@ export default function AppNavigation() {
   );
 
   const mobileNavigation = (
-    <AppBar position="fixed">
+    <AppBar>
       <Toolbar>
         <IconButton
           edge="start"
