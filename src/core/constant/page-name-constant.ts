@@ -13,8 +13,8 @@ export class PageNamesConstants {
     name: "battery",
   };
   static Localisation: Page = {
-    path: "/localisation",
-    name: "localisation",
+    path: "/geolocation",
+    name: "geolocation",
   };
   static Gallery: Page = {
     path: "/gallery",
