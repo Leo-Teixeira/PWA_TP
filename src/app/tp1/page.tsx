@@ -2,7 +2,7 @@
 
 import { Typography, Stack } from "@mui/material";
 import GeoLocalisation from "../../components/GeoLocalisation/GeoLocalisation";
-import Camera from "../camera/camera";
+import Camera from "../camera/page";
 import DownloadPwa from "../../components/downloadPWA/downloadPWA";
 import IsOnline from "../../components/Buttons/IsOnline";
 
