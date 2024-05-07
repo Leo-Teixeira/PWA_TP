@@ -17,6 +17,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Grid,
 } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -29,6 +30,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { useRouter } from "next/navigation";
 import { PageNamesConstants } from "../../core/constant/page-name-constant";
 import "./AppNavigation.scss";
+import BatteryStatus from "@/app/battery/page";
 
 export default function AppNavigation() {
   const theme = useTheme();
@@ -42,11 +44,6 @@ export default function AppNavigation() {
       label: "Caméra",
       Icon: PhotoCameraIcon,
       path: PageNamesConstants.Camera.path,
-    },
-    {
-      label: "Battery",
-      Icon: BatteryStdIcon,
-      path: PageNamesConstants.Battery.path,
     },
     {
       label: "Localisation",
@@ -97,19 +94,22 @@ export default function AppNavigation() {
 
   const desktopNavigation = (
     <header className="AppNavigation">
-      <Typography className="logo" variant="h5" component="h1">
-        Logo Plac
-      </Typography>
+      <Grid container spacing={2}>
+        <Grid xs={10}>
+          <Typography className="logo" variant="h5" component="h1" textAlign='center'>
+            Logo Plac
+          </Typography>
+        </Grid>
+        <Grid xs={2}>
+          <BatteryStatus/>
+        </Grid>
+      </Grid>
+      
       <BottomNavigation showLabels value={value} onChange={handleChange}>
         <BottomNavigationAction
           label="Caméra"
           icon={<PhotoCameraIcon />}
           value={PageNamesConstants.Camera.path}
-        />
-        <BottomNavigationAction
-          label="Battery"
-          icon={<BatteryStdIcon />}
-          value={PageNamesConstants.Battery.path}
         />
         <BottomNavigationAction
           label="Localisation"
@@ -159,6 +159,7 @@ export default function AppNavigation() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Logo Place
         </Typography>
+        <BatteryStatus/>
       </Toolbar>
       <Drawer
         anchor="left"

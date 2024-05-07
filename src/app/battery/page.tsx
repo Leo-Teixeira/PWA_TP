@@ -37,11 +37,9 @@ const BatteryStatus = () => {
       <BatteryGauge
         value={batteryState.level * 100}
         charging={batteryState.charging}
-        width={200}
-        height={200}
+        width={50}
+        height={50}
       />
-      <p>Battery Level: {Math.round(batteryState.level * 100)}%</p>
-      <p>{batteryState.charging ? 'Charging' : 'Not Charging'}</p>
     </div>
   );
 };
