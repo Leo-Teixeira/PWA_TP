@@ -1,4 +1,3 @@
-'use client'
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -14,46 +13,45 @@ export default function GeoLocalisation() {
   const [message, setMessage] = useState("Localisation non récupéré");
   const [showMarker, enableMarker] = useState(false);
 
-  // Gestion de la géolocalisation uniquement côté client
   useEffect(() => {
-    const getLocation = () => {
-      if (navigator.geolocation) {
+    if (typeof navigator !== "undefined" && navigator.geolocation) {
+      const getLocation = () => {
         setMessage("Localisation en cours...");
         navigator.geolocation.getCurrentPosition(showPosition, showError);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    };
+      };
 
-    const showPosition = (position: any) => {
-      setPositions({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-      enableMarker(true);
-    };
+      const showPosition = (position: GeolocationPosition) => {
+        setPositions({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+        enableMarker(true);
+      };
 
-    const showError = (error: any) => {
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          alert("User denied the request for Geolocation.");
-          break;
-        case error.POSITION_UNAVAILABLE:
-          alert("Location information is unavailable.");
-          break;
-        case error.TIMEOUT:
-          alert("The request to get user location timed out.");
-          break;
-        case error.UNKNOWN_ERROR:
-          alert("An unknown error occurred.");
-          break;
-      }
-      setMessage("Localisation non récupérable");
-      setPositions({ latitude: 0, longitude: 0 });
-      enableMarker(false);
-    };
+      const showError = (error: GeolocationPositionError) => {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+          default:
+            alert("An unknown error occurred.");
+            break;
+        }
+        setMessage("Localisation non récupérable");
+        setPositions({ latitude: 0, longitude: 0 });
+        enableMarker(false);
+      };
 
-    getLocation();
+      getLocation();
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
   }, []);
 
   return (
