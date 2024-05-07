@@ -10,8 +10,8 @@ const Tp1 = () => {
   return (
     <Stack spacing={4} direction="column">
       <Camera />
-      {/* <GeoLocalisation /> */}
-      {/* <DownloadPwa /> */}
+      <GeoLocalisation />
+      <DownloadPwa />
     </Stack>
   );
 };
