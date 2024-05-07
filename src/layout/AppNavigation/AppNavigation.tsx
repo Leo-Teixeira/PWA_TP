@@ -4,7 +4,6 @@ import React from "react"
 import Box from "@mui/material/Box"
 import BottomNavigation from "@mui/material/BottomNavigation"
 import BottomNavigationAction from "@mui/material/BottomNavigationAction"
-import GroupIcon from "@mui/icons-material/Group"
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera"
 import LanguageIcon from "@mui/icons-material/Language"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
