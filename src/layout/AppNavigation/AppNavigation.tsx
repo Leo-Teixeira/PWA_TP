@@ -78,6 +78,7 @@ export default function AppNavigation() {
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setValue(newValue);
+    setDrawerOpen(false);
     router.push(newValue);
   };
 
@@ -99,13 +100,7 @@ export default function AppNavigation() {
       <Typography className="logo" variant="h5" component="h1">
         Logo Plac
       </Typography>
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-          router.push(newValue);
-        }}>
+      <BottomNavigation showLabels value={value} onChange={handleChange}>
         <BottomNavigationAction
           label="Caméra"
           icon={<PhotoCameraIcon />}
@@ -151,29 +146,27 @@ export default function AppNavigation() {
   );
 
   const mobileNavigation = (
-    <header>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={() => setDrawerOpen(true)}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Logo Place
-          </Typography>
-        </Toolbar>
-        <Drawer
-          anchor="left"
-          open={drawerOpen}
-          onClose={() => setDrawerOpen(false)}>
-          {drawerContent}
-        </Drawer>
-      </AppBar>
-    </header>
+    <AppBar position="fixed">
+      <Toolbar>
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={() => setDrawerOpen(true)}>
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          Logo Place
+        </Typography>
+      </Toolbar>
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}>
+        {drawerContent}
+      </Drawer>
+    </AppBar>
   );
 
   return <>{isMobile ? mobileNavigation : desktopNavigation}</>;
