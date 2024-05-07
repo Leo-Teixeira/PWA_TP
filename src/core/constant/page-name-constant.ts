@@ -1,20 +1,39 @@
 export type Page = {
-    path: string;
-    name: string;
+  path: string;
+  name: string;
+};
+
+export class PageNamesConstants {
+  static Camera: Page = {
+    path: "/camera",
+    name: "camera",
   };
-  
-  export class PageNamesConstants {
-    static Tp1: Page = {
-      path: "/tp1",
-      name: "tp1",
-    };
-    static Tp2: Page = {
-      path: "/tp2",
-      name: "tp2",
-    };
-    static Tp3: Page = {
-      path: "/tp3",
-      name: "tp3",
-    };
-  }
-  
+  static Battery: Page = {
+    path: "/battery",
+    name: "battery",
+  };
+  static Localisation: Page = {
+    path: "/localisation",
+    name: "localisation",
+  };
+  static Gallery: Page = {
+    path: "/gallery",
+    name: "gallery",
+  };
+  static PhoneCall: Page = {
+    path: "/phonecall",
+    name: "phonecall",
+  };
+  static Vibration: Page = {
+    path: "/vibration",
+    name: "vibration",
+  };
+  static WebOTP: Page = {
+    path: "/webotp",
+    name: "webotp",
+  };
+  static Tchat: Page = {
+    path: "/tchat",
+    name: "tchat",
+  };
+}
