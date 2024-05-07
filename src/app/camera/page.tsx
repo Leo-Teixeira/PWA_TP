@@ -81,7 +81,7 @@ const Camera = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: true,
+        video: { width: 200, height: 200 }
       });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
