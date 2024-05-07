@@ -4,7 +4,7 @@ import OnlineStatus from "../../components/global/OnlineStatus";
 import { Alert, Box, Button, Snackbar } from "@mui/material";
 import WifiOffIcon from '@mui/icons-material/WifiOff';
 import WifiIcon from '@mui/icons-material/Wifi';
-import "./IsOnline.scss";
+import "./isOnline.scss";
 const IsOnline = () => {
     const { isOnline } = OnlineStatus();
     const [open, setOpen] = useState(false);
