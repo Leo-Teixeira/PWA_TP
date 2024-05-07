@@ -64,6 +64,12 @@ const Camera = () => {
     }
   };
 
+  const handleVibration = () => {
+    navigator.vibrate([
+      100, 30, 100, 30, 100, 30, 200, 30, 200, 30, 200, 30, 100, 30, 100, 30, 100,
+    ])
+  }
+
   const startCamera = async () => {
     if (camera == false) {
       setCamera(true);
@@ -112,6 +118,7 @@ const Camera = () => {
       }
       if (isOnline) {
         showNotification();
+        handleVibration();
       }
     }
   };

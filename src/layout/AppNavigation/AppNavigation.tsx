@@ -56,11 +56,6 @@ export default function AppNavigation() {
       path: PageNamesConstants.Gallery.path,
     },
     {
-      label: "Mode vibreur",
-      Icon: VibrationIcon,
-      path: PageNamesConstants.Vibration.path,
-    },
-    {
       label: "Appel téléphonique",
       Icon: PhoneInTalkIcon,
       path: PageNamesConstants.PhoneCall.path,
@@ -120,11 +115,6 @@ export default function AppNavigation() {
           label="Galerie"
           icon={<CollectionsIcon />}
           value={PageNamesConstants.Gallery.path}
-        />
-        <BottomNavigationAction
-          label="Mode vibreur"
-          icon={<VibrationIcon />}
-          value={PageNamesConstants.Vibration.path}
         />
         <BottomNavigationAction
           label="Appel téléphonique"
