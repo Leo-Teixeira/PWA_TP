@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 type CredentialRequestOptions = {
@@ -35,9 +35,16 @@ const WebOTP = () => {
         }
     }, [otp])
 
-    return (<Box>
+    return (
+        <Container maxWidth="sm" style={{ marginTop: '2em' }}>
+    <Box display="flex"
+    flexDirection="column"
+    alignItems="center"
+    justifyContent="center"
+    height="100vh">
         <Typography>My OTP code is : {otp}</Typography>
-    </Box>);
+    </Box>
+    </Container>);
 }
 
 export default WebOTP;
