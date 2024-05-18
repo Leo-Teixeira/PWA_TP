@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -11,7 +11,7 @@ export default function GeoLocalisation() {
     latitude: 48.86,
     longitude: 2.337,
   });
-  const [message, setMessage] = useState("Localisation non récupéré");
+  const [message, setMessage] = useState("Localisation non récupérée");
   const [showMarker, enableMarker] = useState(false);
 
   useEffect(() => {
@@ -65,7 +65,8 @@ export default function GeoLocalisation() {
           <Button
             variant="contained"
             startIcon={<LocationSearchingIcon />}
-            onClick={() => alert("Click to activate geolocation.")}>
+            onClick={() => alert("Click to activate geolocation.")}
+          >
             Localisation
           </Button>
         </Box>
