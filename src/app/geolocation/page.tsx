@@ -45,7 +45,7 @@ export default function GeoLocalisation() {
           setMessage("Location information is unavailable.");
           break;
         case error.TIMEOUT:
-          setMessage("The request to get user location timed out.");
+          setMessage("The request to get user location timed out."); 
           break;
         default:
           setMessage("An unknown error occurred.");
