@@ -20,33 +20,32 @@ const Camera = () => {
     localStorage.setItem("listPhoto", JSON.stringify(photos));
   }, [photos]);
 
-  //   useEffect(() => {
-  //     const handleOnlineAction = () => {
-  //       // Actions à effectuer lorsque l'utilisateur est en ligne
-  //       console.log("En ligne");
-  //       setPhotos((prevPhotos) => {
-  //         const updatedPhotos = new Map(prevPhotos);
-  //         updatedPhotos.forEach((photo) => {
-  //           photo.online = true;
-  //           showNotification()
-  //         });
-  //         return updatedPhotos;
-  //       });
-  //     };
+    useEffect(() => {
+      const handleOnlineAction = () => {
+        // Actions à effectuer lorsque l'utilisateur est en ligne
+        console.log("En ligne");
+        setPhotos((prevPhotos) => {
+          const updatedPhotos = new Map(prevPhotos);
+          updatedPhotos.forEach((photo) => {
+            photo.online = true;
+            showNotification()
+          });
+          return updatedPhotos;
+        });
+      };
 
-  //     const handleOfflineAction = () => {
-  //       // Actions à effectuer lorsque l'utilisateur est hors ligne
-  //       console.log("Hors ligne");
-  //     };
+      const handleOfflineAction = () => {
+        // Actions à effectuer lorsque l'utilisateur est hors ligne
+        console.log("Hors ligne");
+      };
 
-  //     whenOnline(handleOnlineAction);
-  //     whenOffline(handleOfflineAction);
-
-  //     return () => {
-  //       whenOnline(() => {});
-  //       whenOffline(() => {});
-  //     };
-  //   }, [isOnline]);
+      if (isOnline) {
+        handleOnlineAction();
+      }
+      else {
+        handleOfflineAction();
+      }
+    }, [isOnline]);
 
   const showNotification = async () => {
     if ("Notification" in window) {
