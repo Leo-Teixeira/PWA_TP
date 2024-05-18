@@ -33,7 +33,7 @@ const WebOTP = () => {
             console.log(err);
           });
         }
-    }, [otp])
+    }, [])
 
     return (
         <Container maxWidth="sm" style={{ marginTop: '2em' }}>
