@@ -55,19 +55,6 @@ const WebOTP = () => {
           justifyContent="center"
           height="100vh"
         >
-          <Typography variant="h4" component="h1" gutterBottom>
-            WebOTP Notification
-          </Typography>
-          <TextField
-            label="Enter OTP"
-            variant="outlined"
-            fullWidth
-            value={otp}
-            onChange={handleOtpChange}
-            margin="normal"
-            error={!!otpError}
-            helperText={otpError}
-          />
           <Button
             variant="contained"
             color="primary"
