@@ -24,6 +24,7 @@ const WebOTP = () => {
             signal: ac.signal
         }
         navigator.credentials.get(otpOption).then((otpCredential) => {
+            console.log('otp read');
           setOtp(otpCredential!.id);
         }).catch((err) => {
           setOtpError('Failed to auto-read OTP: ' + err.message);
@@ -47,7 +48,10 @@ const WebOTP = () => {
           height="100vh"
         >
           <Box>
+            { otpError != null ?
+            <Typography>{otpError}</Typography> : 
             <Typography>My OTP code is: {otp}</Typography>
+            }
           </Box>
         </Box>
       </Container>
