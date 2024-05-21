@@ -17,13 +17,13 @@ const WebOTP = () => {
   const [otpError, setOtpError] = useState('');
 
   useEffect(() => {
+    debugger;
     if ('OTPCredential' in window) {
       const ac = new AbortController();
       const otpOption: CredentialRequestOptions = {
         otp: { transport: ['sms'] },
         signal: ac.signal,
       };
-
       navigator.credentials.get(otpOption).then((otpCredential) => {
         if (otpCredential) {
           console.log('OTP read:', otpCredential);
