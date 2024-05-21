@@ -37,15 +37,6 @@ const WebOTP = () => {
       }
     }, []);
   
-    const handleOtpChange = (event : ChangeEvent<HTMLInputElement>) => {
-      setOtp(event.target.value);
-    };
-  
-    const handleSendNotification = () => {
-      // Logique pour envoyer une notification pour WebOTP
-      console.log('Notification sent for WebOTP with OTP:', otp);
-    };
-  
     return (
       <Container maxWidth="sm" style={{ marginTop: '2em' }}>
         <Box
@@ -55,15 +46,6 @@ const WebOTP = () => {
           justifyContent="center"
           height="100vh"
         >
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handleSendNotification}
-            style={{ marginBottom: '1em' }}
-          >
-            Send Notification
-          </Button>
           <Box>
             <Typography>My OTP code is: {otp}</Typography>
           </Box>
