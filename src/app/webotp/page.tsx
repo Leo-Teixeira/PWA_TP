@@ -9,7 +9,6 @@ const WebOTP = () => {
 
   useEffect(() => {
     if ('OTPCredential' in window) {
-        console.log('bien dans window');
       const ac = new AbortController();
       const otpOption = {
         otp: { transport: ['sms'] },
@@ -17,16 +16,21 @@ const WebOTP = () => {
       };
 
       navigator.credentials.get(otpOption).then((otpCredential) => {
-        console.log('credantial trouvée');
         if (otpCredential && 'code' in otpCredential) {
-          console.log('OTP read:', otpCredential);
-          setOtp((otpCredential as any).code);
+          const otpCode = (otpCredential as any).code;
+          if (otpCode) {
+            console.log('OTP read:', otpCode);
+            setOtp(otpCode);
+          } else {
+            setOtpError('No OTP code found in the credential');
+          }
         }
       }).catch((err) => {
         console.error('Failed to auto-read OTP:', err);
         setOtpError('Failed to auto-read OTP: ' + err.message);
       });
 
+      // Cleanup to abort the request if the component unmounts
       return () => {
         ac.abort();
       };
