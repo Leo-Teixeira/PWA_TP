@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { Box, Container, TextField, Button, Typography } from '@mui/material';
 
