@@ -56,7 +56,7 @@ export default function GeoLocalisation() {
     };
 
     // Exécutez la logique de géolocalisation uniquement côté client
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
       getLocation();
     }
   }, []);
