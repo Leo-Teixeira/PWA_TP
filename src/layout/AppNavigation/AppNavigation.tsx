@@ -18,6 +18,7 @@ import {
   ListItemIcon,
   ListItemText,
   Grid,
+  Button,
 } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -31,6 +32,7 @@ import { useRouter } from "next/navigation";
 import { PageNamesConstants } from "../../core/constant/page-name-constant";
 import "./AppNavigation.scss";
 import BatteryStatus from "@/app/battery/page";
+import Authentication from "../authentication/authentication";
 
 export default function AppNavigation() {
   const theme = useTheme();
@@ -51,11 +53,6 @@ export default function AppNavigation() {
       path: PageNamesConstants.Localisation.path,
     },
     {
-      label: "Galerie",
-      Icon: CollectionsIcon,
-      path: PageNamesConstants.Gallery.path,
-    },
-    {
       label: "Appel téléphonique",
       Icon: PhoneInTalkIcon,
       path: PageNamesConstants.PhoneCall.path,
@@ -74,8 +71,15 @@ export default function AppNavigation() {
     router.push(newValue);
   };
 
+  const disconnect = () => {
+    localStorage.clear();
+  }
+
   const drawerContent = (
     <List>
+      <Typography variant="h6" component="h6" textAlign='center'>
+        Bonjour {localStorage.getItem("userName")}
+      </Typography>
       {navigationLinks.map(({ label, Icon, path }) => (
         <ListItem button key={label} onClick={() => router.push(path)}>
           <ListItemIcon>
@@ -84,7 +88,9 @@ export default function AppNavigation() {
           <ListItemText primary={label} />
         </ListItem>
       ))}
+      <Button onClick={disconnect}>Déconnexion</Button>
     </List>
+    
   );
 
   const desktopNavigation = (
@@ -93,6 +99,9 @@ export default function AppNavigation() {
         <Grid xs={10}>
           <Typography className="logo" variant="h5" component="h1" textAlign='center'>
             Logo Plac
+          </Typography>
+          <Typography variant="h6" component="h6" textAlign='center'>
+            Bonjour {localStorage.getItem("userName")}
           </Typography>
         </Grid>
         <Grid xs={2}>
@@ -112,11 +121,6 @@ export default function AppNavigation() {
           value={PageNamesConstants.Localisation.path}
         />
         <BottomNavigationAction
-          label="Galerie"
-          icon={<CollectionsIcon />}
-          value={PageNamesConstants.Gallery.path}
-        />
-        <BottomNavigationAction
           label="Appel téléphonique"
           icon={<PhoneInTalkIcon />}
           value={PageNamesConstants.PhoneCall.path}
@@ -132,6 +136,8 @@ export default function AppNavigation() {
           value={PageNamesConstants.Tchat.path}
         />
       </BottomNavigation>
+
+      <Button onClick={disconnect}>Déconnexion</Button>
     </header>
   );
 
@@ -147,7 +153,7 @@ export default function AppNavigation() {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Logo Place
+          Logo Plac
         </Typography>
         <BatteryStatus/>
       </Toolbar>
@@ -157,6 +163,7 @@ export default function AppNavigation() {
         onClose={() => setDrawerOpen(false)}>
         {drawerContent}
       </Drawer>
+      
     </AppBar>
   );
 

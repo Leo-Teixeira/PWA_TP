@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
-import AppNavigation from "../layout/AppNavigation/AppNavigation";
-import { useEffect } from "react";
-import App from "./_app";
 import IsOnline from "../components/Buttons/IsOnline";
+import Authentication from "@/layout/authentication/authentication";
+import AppNavigation from "@/layout/AppNavigation/AppNavigation";
 
 const APP_NAME = "Plac PWA";
 const APP_DEFAULT_TITLE = "Plac PWA";
@@ -61,9 +60,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <main>{children}</main>
         <IsOnline />
-        <AppNavigation />
+        <Authentication/>
+        <main>{children}</main>
       </body>
     </html>
   );

@@ -16,10 +16,6 @@ export class PageNamesConstants {
     path: "/geolocation",
     name: "geolocation",
   };
-  static Gallery: Page = {
-    path: "/gallery",
-    name: "gallery",
-  };
   static PhoneCall: Page = {
     path: "/phonecall",
     name: "phonecall",
