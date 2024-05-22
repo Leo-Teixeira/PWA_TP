@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const WebOTP = () => {
@@ -53,13 +53,15 @@ const WebOTP = () => {
         justifyContent="center"
         height="100vh"
       >
-        <Box>
-          { otpError ? (
-            <Typography color="error">{otpError}</Typography>
-          ) : (
-            <Typography>My OTP code is: {otp}</Typography>
-          )}
-        </Box>
+        <TextField
+            label="Enter OTP"
+            variant="outlined"
+            value={otp}
+            fullWidth
+            margin="normal"
+            inputProps={{ autoComplete: "one-time-code" }}
+            required
+          />
       </Box>
     </Container>
   );
