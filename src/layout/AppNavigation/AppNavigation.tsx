@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -23,16 +23,12 @@ import {
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import CollectionsIcon from "@mui/icons-material/Collections";
-import BatteryStdIcon from "@mui/icons-material/BatteryStd";
-import VibrationIcon from "@mui/icons-material/Vibration";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useRouter } from "next/navigation";
 import { PageNamesConstants } from "../../core/constant/page-name-constant";
-import "./AppNavigation.scss";
 import BatteryStatus from "@/app/battery/page";
-import Authentication from "../authentication/authentication";
+import "./AppNavigation.scss";
 
 export default function AppNavigation() {
   const theme = useTheme();
@@ -40,6 +36,14 @@ export default function AppNavigation() {
   const [value, setValue] = useState(PageNamesConstants.Camera.path);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const router = useRouter();
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      const storedUserName = localStorage.getItem("userName");
+      setUserName(storedUserName ?? "");
+    }
+  }, []);
 
   const navigationLinks = [
     {
@@ -72,13 +76,15 @@ export default function AppNavigation() {
   };
 
   const disconnect = () => {
-    localStorage.clear();
-  }
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      localStorage.clear();
+    }
+  };
 
   const drawerContent = (
     <List>
-      <Typography variant="h6" component="h6" textAlign='center'>
-        Bonjour {localStorage.getItem("userName")}
+      <Typography variant="h6" component="h6" textAlign="center">
+        Bonjour {userName}
       </Typography>
       {navigationLinks.map(({ label, Icon, path }) => (
         <ListItem button key={label} onClick={() => router.push(path)}>
@@ -90,25 +96,24 @@ export default function AppNavigation() {
       ))}
       <Button onClick={disconnect}>Déconnexion</Button>
     </List>
-    
   );
 
   const desktopNavigation = (
     <header className="AppNavigation">
       <Grid container spacing={2}>
         <Grid xs={10}>
-          <Typography className="logo" variant="h5" component="h1" textAlign='center'>
+          <Typography className="logo" variant="h5" component="h1" textAlign="center">
             Logo Plac
           </Typography>
-          <Typography variant="h6" component="h6" textAlign='center'>
-            Bonjour {localStorage.getItem("userName")}
+          <Typography variant="h6" component="h6" textAlign="center">
+            Bonjour {userName}
           </Typography>
         </Grid>
         <Grid xs={2}>
-          <BatteryStatus/>
+          <BatteryStatus />
         </Grid>
       </Grid>
-      
+
       <BottomNavigation showLabels value={value} onChange={handleChange}>
         <BottomNavigationAction
           label="Caméra"
@@ -149,21 +154,22 @@ export default function AppNavigation() {
           color="inherit"
           aria-label="menu"
           sx={{ mr: 2 }}
-          onClick={() => setDrawerOpen(true)}>
+          onClick={() => setDrawerOpen(true)}
+        >
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Logo Plac
         </Typography>
-        <BatteryStatus/>
+        <BatteryStatus />
       </Toolbar>
       <Drawer
         anchor="left"
         open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}>
+        onClose={() => setDrawerOpen(false)}
+      >
         {drawerContent}
       </Drawer>
-      
     </AppBar>
   );
 
