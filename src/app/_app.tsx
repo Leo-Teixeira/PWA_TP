@@ -7,7 +7,7 @@ export default function App() {
       typeof navigator !== "undefined" &&
       navigator &&
       "serviceWorker" in navigator &&
-      typeof window !== "undefined" &&
+      typeof window !== "undefined" && typeof localStorage !== 'undefined' &&
       window
     ) {
       window.addEventListener("load", function () {

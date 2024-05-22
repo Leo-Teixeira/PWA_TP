@@ -17,9 +17,7 @@ const Camera = () => {
   //   const sendButton = document.querySelector("#send");
 
   useEffect(() => {
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem("listPhoto", JSON.stringify(photos));
-    }
+    localStorage.setItem("listPhoto", JSON.stringify(photos));
   }, [photos]);
 
     useEffect(() => {
