@@ -15,11 +15,13 @@ const WebOTP: React.FC = () => {
             };
             const otpResult = navigator.credentials.get(otpOption).then((otp :any) => {
                 console.log('OPT GET');
+                alert('OPT GET');
                 if (otp) {
                     setOtpcode(otp.code)
                 }
             }).catch(err => {
                 console.log(err);
+                alert(err);
             });
           }
     });
