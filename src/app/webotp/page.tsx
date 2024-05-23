@@ -13,15 +13,14 @@ const WebOTP: React.FC = () => {
               otp: { transport: ['sms'] },
               signal: ac.signal,
             };
-            const otpResult = navigator.credentials.get(otpOption) as any;
-            
-              otpResult.then((otpT: any) => {
-                setOtpcode(otpT.code);
-                ac.abort();
-              })
-              .catch(() => {
-                ac.abort();
-              });
+            const otpResult = navigator.credentials.get(otpOption).then((otp :any) => {
+                console.log('OPT GET');
+                if (otp) {
+                    setOtpcode(otp.code)
+                }
+            }).catch(err => {
+                console.log(err);
+            });
           }
     });
   
@@ -35,7 +34,7 @@ const WebOTP: React.FC = () => {
           autoComplete="one-time-code"
           inputMode="numeric"
           value={otpcode}
-          onChange={(e) => setOtpcode(e.target.value)}
+        //   onChange={(e) => setOtpcode(e.target.value)}
         />
       </>
     );

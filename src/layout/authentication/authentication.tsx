@@ -5,7 +5,7 @@ import { Box, Button, TextField } from "@mui/material";
 
 const Authentication = () => {
     const [username, setUsername] = useState('');
-    const [userId, setUserId] = useState(localStorage.getItem('userId') || '');
+    const [userId, setUserId] = useState(localStorage ? localStorage.getItem('userId') ? localStorage.getItem('userId') : '' : '');
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
