@@ -1,4 +1,3 @@
-'use client'
 import { useEffect, useState, FormEvent } from 'react';
 import { io, Socket } from 'socket.io-client';
 
@@ -11,17 +10,17 @@ interface Message {
 
 let socket: Socket;
 
-const Home: React.FC = () => {
+const Tchat: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    // Cette vérification assure que ce code ne s'exécute que côté client
     if (typeof window !== 'undefined') {
       const username = localStorage.getItem('username');
       if (username) {
-        
-        socket = io();
+        socket = io({
+          transports: ['websocket'], // Utiliser uniquement les WebSockets
+        });
 
         socket.on('message', (msg: Message) => {
           setMessages((prevMessages) => [...prevMessages, msg]);
@@ -71,4 +70,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Tchat;

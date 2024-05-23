@@ -10,7 +10,9 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
   const httpServer = http.createServer(server);
-  const io = new Server(httpServer);
+  const io = new Server(httpServer, {
+    transports: ['websocket'],
+  });
 
   io.on('connection', (socket: Socket) => {
     console.log('a user connected');
