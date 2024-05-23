@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 const Authentication = () => {
     const [username, setUsername] = useState('');
     const { otp } = WebOTP();
-    const router = useRouter();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -17,7 +16,6 @@ const Authentication = () => {
             const id = generateUserId();
             localStorage.setItem("userName", username); // Utiliser un nom de clé cohérent
             localStorage.setItem("userId", id);
-            router.push("/camera");
         }
     };
 
