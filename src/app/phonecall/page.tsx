@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { Grid, Paper, Button, TextField, Box } from '@mui/material';
+import { Grid, Paper, Button, TextField, Box, Typography } from '@mui/material';
 
 const PhoneCall = () => {
     const [inputValue, setInputValue] = useState('');
@@ -11,16 +11,19 @@ const PhoneCall = () => {
 
     return (
         <Box sx={{ height: '450px', width: '300px', padding: '20px', margin: '20px' }}>
+            <Typography component={'h2'}>Passer un appel</Typography>
             <TextField
+                type='tel'
                 fullWidth
                 variant="outlined"
                 margin="normal"
                 value={inputValue}
-                InputProps={{
-                    readOnly: true,
-                }}
+                onChange={(e) => setInputValue(e.target.value)}
+                // InputProps={{
+                //     readOnly: true,
+                // }}
             />
-            <Grid container spacing={1}>
+            {/* <Grid container spacing={1}>
                 {['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'].map((key) => (
                     <Grid item xs={4} key={key}>
                         {
@@ -35,8 +38,8 @@ const PhoneCall = () => {
                         
                     </Grid>
                 ))}
-            </Grid>
-            <Button 
+            </Grid> */}
+            <Button
                 variant="contained" 
                 color="primary" 
                 fullWidth 

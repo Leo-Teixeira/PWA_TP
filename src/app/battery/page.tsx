@@ -33,7 +33,7 @@ const BatteryStatus = () => {
   }, []);
 
   return (
-    <div>
+    <div className='BatteryGauge'>
       <BatteryGauge
         value={batteryState.level * 100}
         charging={batteryState.charging}

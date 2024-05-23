@@ -32,4 +32,8 @@ export class PageNamesConstants {
     path: "/tchat",
     name: "tchat",
   };
+  static Login: Page = {
+    path: "/",
+    name: "login",
+  };
 }

@@ -18,47 +18,46 @@ export default function GeoLocalisation() {
   const [message, setMessage] = useState("Localisation non récupérée");
   const [showMarker, enableMarker] = useState(false);
 
-  useEffect(() => {
-    const getLocation = () => {
-      if (navigator.geolocation) {
-        setMessage("Localisation en cours...");
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-      } else {
-        setMessage("Geolocation is not supported by this browser.");
-      }
-    };
-
-    const showPosition = (position : GeolocationPosition) => {
-      setPositions({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-      enableMarker(true);
-    };
-
-    const showError = (error : GeolocationPositionError) => {
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          setMessage("User denied the request for Geolocation.");
-          break;
-        case error.POSITION_UNAVAILABLE:
-          setMessage("Location information is unavailable.");
-          break;
-        case error.TIMEOUT:
-          setMessage("The request to get user location timed out."); 
-          break;
-        default:
-          setMessage("An unknown error occurred.");
-          break;
-      }
-      setPositions({ latitude: 0, longitude: 0 });
-      enableMarker(false);
-    };
-
-    // Exécutez la logique de géolocalisation uniquement côté client
-    if (typeof window !== "undefined") {
-      getLocation();
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      setMessage("Localisation en cours...");
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      setMessage("Geolocation is not supported by this browser.");
     }
+  };
+
+  const showPosition = (position : GeolocationPosition) => {
+    setPositions({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
+    enableMarker(true);
+  };
+
+  const showError = (error : GeolocationPositionError) => {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        setMessage("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        setMessage("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        setMessage("The request to get user location timed out."); 
+        break;
+      default:
+        setMessage("An unknown error occurred.");
+        break;
+    }
+    setPositions({ latitude: 0, longitude: 0 });
+    enableMarker(false);
+  };
+  useEffect(() => {
+    // Exécutez la logique de géolocalisation uniquement côté client
+    // if (typeof window !== "undefined") {
+    //   getLocation();
+    // }
   }, []);
 
   return (
@@ -68,7 +67,7 @@ export default function GeoLocalisation() {
           <Button
             variant="contained"
             startIcon={<LocationSearchingIcon />}
-            onClick={() => alert("Click to activate geolocation.")}
+            onClick={getLocation}
           >
             Localisation
           </Button>

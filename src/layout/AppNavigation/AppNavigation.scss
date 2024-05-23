@@ -6,18 +6,18 @@
     background-color: #ffffff;
     z-index: 1000;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
     .MuiBottomNavigation-root{
         background-color: transparent !important;
     }
 
-    .logo{
-        margin-bottom: 4rem;
-    }
-
     @media screen and (min-width: 768px){
         top: 0;
         width: 14rem;
+        padding-bottom: 4rem;
         
         .MuiBottomNavigation-root{
             height: unset;
@@ -31,4 +31,11 @@
             gap: 1rem;
         }
     }
+}
+
+
+.BatteryGauge{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

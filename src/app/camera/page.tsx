@@ -1,9 +1,13 @@
 "use client";
-import { Button, ImageList, ImageListItem } from "@mui/material";
+import { Button, ImageList, ImageListItem, ListItem, Stack } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
 import OnlineStatus from "../../components/global/OnlineStatus";
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import CloudDoneIcon from '@mui/icons-material/CloudDone';
+import CloudOffIcon from '@mui/icons-material/CloudOff';
 
 const Camera = () => {
   const { isOnline } = OnlineStatus();
@@ -52,7 +56,7 @@ const Camera = () => {
       Notification.requestPermission().then((result) => {
         if (result === "granted") {
           new Notification("Notification", {
-            body: "sah quel plaisir",
+            body: "Une nouvelle photo a été ajoutée",
           });
         } else {
           throw new Error("Permission denied");
@@ -128,24 +132,28 @@ const Camera = () => {
       {camera && (
         <Box>
           <video ref={videoRef} autoPlay />
-          <Button id="take" onClick={takePhoto}>
+          <Button id="take" onClick={takePhoto} endIcon={<AddPhotoAlternateIcon />}>
             Prendre une photo
           </Button>
         </Box>
       )}
-      <Button onClick={startCamera}>{buttonText}</Button>
+      <Button onClick={startCamera} variant="contained" endIcon={<PhotoCameraIcon />}>{buttonText}</Button>
       {photos &&
-        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+        <Stack sx={{ marginTop:'2rem', gap:'1rem', flexWrap: 'wrap', flexDirection :'row' }}>
             {Array.from(photos.entries()).map(([key, photo]) => (
-                <ImageListItem key={key}>
+                <div key={key} className="img-container">
                     <img
                     src={photo.photo}
                     alt={`Photo ${key}`}
+                    className="img"
                     loading="lazy"
+                    width={200}
+                    height={200}
                     />
-                </ImageListItem>
+                    <div className={photo.online ? 'img-icon' : 'img-icon'}>{photo.online ? <CloudDoneIcon fontSize="inherit" /> : <CloudOffIcon fontSize="inherit" />}</div>
+                </div>
             ))}
-        </ImageList>
+        </Stack>
         // Array.from(photos.entries()).map(([key, photo]) => (
         //   <Box key={key}>
         //     <Typography>Online: {photo.online ? "Yes" : "No"}</Typography>

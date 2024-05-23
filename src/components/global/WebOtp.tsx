@@ -34,7 +34,8 @@ const WebOTP = () => {
                 // alert(err);
             });
           } else {
-            alert('OTP ELSE')
+            // alert('OTP ELSE')
+            console.log('OTP is not supported');
           }
     }, []);
   

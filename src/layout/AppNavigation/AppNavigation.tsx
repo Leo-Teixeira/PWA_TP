@@ -19,6 +19,7 @@ import {
   ListItemText,
   Grid,
   Button,
+  Stack,
 } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -42,6 +43,10 @@ export default function AppNavigation() {
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
       const storedUserName = localStorage.getItem("userName");
       setUserName(storedUserName ?? "");
+
+        if (!localStorage.getItem("userId")) {
+            router.push(PageNamesConstants.Login.path);
+        }
     }
   }, []);
 
@@ -77,16 +82,16 @@ export default function AppNavigation() {
 
   const disconnect = () => {
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
-      localStorage.clear();
+        router.push(PageNamesConstants.Login.path);
+        localStorage.clear();
+        window.location.reload();
     }
   };
 
   const drawerContent = (
-    <List>
-        <ListItem>
-            <Typography variant="h6" component="h6" textAlign="center">
-                Bonjour {userName}
-            </Typography>
+    <List sx={{height :  '100%', display : 'flex', flexDirection: 'column'}}>
+        <ListItem sx={{ justifyContent : 'center' }}>
+            <p style={{textAlign : 'center'}}> Bonjour {userName}</p>
         </ListItem>
       {navigationLinks.map(({ label, Icon, path }) => (
         <ListItem button key={label} onClick={() => router.push(path)}>
@@ -96,55 +101,58 @@ export default function AppNavigation() {
           <ListItemText primary={label} />
         </ListItem>
       ))}
-      <Button onClick={disconnect}>Déconnexion</Button>
+        <ListItem sx={{ justifyContent : 'center', marginTop : 'auto' }}>
+            <Button onClick={disconnect} sx={{ marginTop :'auto'}}>Déconnexion</Button>
+        </ListItem>
+        <ListItem sx={{ justifyContent : 'center' }}>
+            <BatteryStatus />
+        </ListItem>
     </List>
   );
 
   const desktopNavigation = (
     <header className="AppNavigation">
-      <Grid container spacing={2}>
-        <Grid xs={10}>
-          <Typography className="logo" variant="h5" component="h1" textAlign="center">
-            Logo Plac
-          </Typography>
-          <Typography variant="h6" component="h6" textAlign="center">
-            Bonjour {userName}
-          </Typography>
-        </Grid>
-        <Grid xs={2}>
-          <BatteryStatus />
-        </Grid>
-      </Grid>
-
-      <BottomNavigation showLabels value={value} onChange={handleChange}>
+      <Stack>
+        <Typography className="logo" variant="h5" component="h1" textAlign="center">
+        PLAC
+        </Typography>
+      </Stack>
+      {drawerContent}
+      {/* <BottomNavigation showLabels value={value} onChange={handleChange} sx={{ width: "100%" }}>
         <BottomNavigationAction
           label="Caméra"
           icon={<PhotoCameraIcon />}
           value={PageNamesConstants.Camera.path}
+          sx={{ justifyContent: "flex-start" }}
         />
         <BottomNavigationAction
           label="Localisation"
           icon={<LocationOnIcon />}
           value={PageNamesConstants.Localisation.path}
+          sx={{ justifyContent: "flex-start" }}
         />
         <BottomNavigationAction
           label="Appel téléphonique"
           icon={<PhoneInTalkIcon />}
           value={PageNamesConstants.PhoneCall.path}
+          sx={{ justifyContent: "flex-start" }}
         />
         <BottomNavigationAction
           label="WebOTP"
           icon={<LanguageIcon />}
           value={PageNamesConstants.WebOTP.path}
+          sx={{ justifyContent: "flex-start" }}
         />
         <BottomNavigationAction
           label="Tchat"
           icon={<ChatIcon />}
           value={PageNamesConstants.Tchat.path}
+          sx={{ justifyContent: "flex-start" }}
         />
-      </BottomNavigation>
+      </BottomNavigation> */}
 
-      <Button onClick={disconnect}>Déconnexion</Button>
+        
+
     </header>
   );
 
@@ -161,9 +169,8 @@ export default function AppNavigation() {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Logo Plac
+           Plac
         </Typography>
-        <BatteryStatus />
       </Toolbar>
       <Drawer
         anchor="left"
