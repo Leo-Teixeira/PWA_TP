@@ -12,7 +12,7 @@ app.prepare().then(() => {
   const httpServer = http.createServer(server);
   const io = new Server(httpServer, {
     cors: {
-      origin: "*", // Permettre les requêtes cross-origin
+      origin: "*",
       methods: ["GET", "POST"]
     },
     transports: ['websocket'], // Utiliser uniquement les WebSockets
