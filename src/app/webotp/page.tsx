@@ -29,24 +29,23 @@ const WebOTP: React.FC = () => {
                 console.log(err);
                 alert(err);
             });
+          } else {
+            alert('OTP ELSE')
           }
-    });
+    }, []);
   
     return (
       <>
         <h1>Web OTP example</h1>
         <h2>Your OTP is: {otpcode}</h2>
-        <form action="">
-            <input
-            // type="text"
-            placeholder="Enter OTP"
-            autoComplete="one-time-code"
-            // inputMode="numeric"
-            value={otpcode}
-            //   onChange={(e) => setOtpcode(e.target.value)}
-            />
-        </form>
-        
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          autoComplete="one-time-code"
+          inputMode="numeric"
+          value={otpcode}
+          onChange={(e) => setOtpcode(e.target.value)}
+        />
       </>
     );
 };
