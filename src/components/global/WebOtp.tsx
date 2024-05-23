@@ -1,9 +1,8 @@
 'use client'
 
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { Box, Container, TextField, Button, Typography } from '@mui/material';
 
-const WebOTP: React.FC = () => {
+const WebOTP = () => {
     const [otp, setOtp] = useState("");
     
     useEffect(() => {
@@ -39,17 +38,9 @@ const WebOTP: React.FC = () => {
           }
     }, []);
   
-    return (
-        <input
-          type="text"
-          placeholder="Enter OTP"
-          autoComplete="one-time-code"
-          inputMode="numeric"
-          value={otp}
-        //   value={otpcode}
-        //   onChange={(e) => setOtpcode(e.target.value)}
-        />
-    );
+    return {
+		otp
+	}
 };
 
 export default WebOTP;
