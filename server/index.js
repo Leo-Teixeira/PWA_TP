@@ -3,14 +3,12 @@ import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import cors from 'cors';
 
-
-// Créer l'application Express
-const app = express();
-
+app.use(express.static(path.join(__dirname, 'build')));
 // Créer le serveur HTTP
 const httpServer = createServer(app);
 const PORT = 4620;
 app.use(cors());
+
 
 // Créer le serveur Socket.io
 const io = new SocketIOServer(httpServer, {
@@ -27,6 +25,10 @@ httpServer.listen(PORT, () => {
 
 app.get('/test', (req, res) => {
     res.send('Hello world');
+  });
+
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
 
 // Gérer les connexions Socket.io
