@@ -19,7 +19,7 @@ const WebOTP: React.FC = () => {
             //     ac.abort();
             // });
             // }
-            const otpResult = navigator.credentials.get(otpOption).then((otp :any) => {
+            navigator.credentials.get(otpOption).then((otp :any) => {
                 console.log('OPT GET');
                 alert('OPT GET');
                 if (otp) {
