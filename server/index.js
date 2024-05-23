@@ -29,7 +29,7 @@ app.get('/test', (req, res) => {
 
   app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
+  }); 
 
 // Gérer les connexions Socket.io
 io.on('connection', (socket) => {
