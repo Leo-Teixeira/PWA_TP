@@ -8,10 +8,10 @@ const nextConfig = {
 const nextConfigFunction = async (phase) => {
   if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
     const withPWA = (await import('@ducanh2912/next-pwa')).default({
+      customWorkerSrc: "worker",
       dest: 'public',
       register: true,
       skipWaiting: true,
-      swSrc: 'public/sw.js', // Utiliser le service worker personnalisé
       runtimeCaching: [
         {
           urlPattern: /^https?:\/\/.*\/socket\.io\//,
