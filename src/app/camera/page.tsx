@@ -139,7 +139,7 @@ const Camera = () => {
             {Array.from(photos.entries()).map(([key, photo]) => (
                 <ImageListItem key={key}>
                     <img
-                    src={`${photo.photo}?w=164&h=164&fit=crop&auto=format`}
+                    src={photo.photo}
                     alt={`Photo ${key}`}
                     loading="lazy"
                     />
