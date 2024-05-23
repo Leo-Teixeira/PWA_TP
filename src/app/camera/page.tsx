@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@mui/material";
+import { Button, ImageList, ImageListItem } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
@@ -135,12 +135,24 @@ const Camera = () => {
       )}
       <Button onClick={startCamera}>{buttonText}</Button>
       {photos &&
-        Array.from(photos.entries()).map(([key, photo]) => (
-          <Box key={key}>
-            <Typography>Online: {photo.online ? "Yes" : "No"}</Typography>
-            <img src={photo.photo} alt={`Photo ${key}`} />
-          </Box>
-        ))}
+        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+            {Array.from(photos.entries()).map(([key, photo]) => (
+                <ImageListItem key={key}>
+                    <img
+                    src={`${photo.photo}?w=164&h=164&fit=crop&auto=format`}
+                    alt={`Photo ${key}`}
+                    loading="lazy"
+                    />
+                </ImageListItem>
+            ))}
+        </ImageList>
+        // Array.from(photos.entries()).map(([key, photo]) => (
+        //   <Box key={key}>
+        //     <Typography>Online: {photo.online ? "Yes" : "No"}</Typography>
+        //     <img src={photo.photo} alt={`Photo ${key}`} />
+        //   </Box>
+        // ))
+        }
     </Box>
   );
 };
