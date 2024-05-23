@@ -13,6 +13,12 @@ const WebOTP: React.FC = () => {
               otp: { transport: ['sms'] },
               signal: ac.signal,
             };
+            // const form = input.closest('form');
+            // if (form) {
+            // form.addEventListener('submit', e => {
+            //     ac.abort();
+            // });
+            // }
             const otpResult = navigator.credentials.get(otpOption).then((otp :any) => {
                 console.log('OPT GET');
                 alert('OPT GET');
@@ -30,14 +36,17 @@ const WebOTP: React.FC = () => {
       <>
         <h1>Web OTP example</h1>
         <h2>Your OTP is: {otpcode}</h2>
-        <input
-          type="text"
-          placeholder="Enter OTP"
-          autoComplete="one-time-code"
-          inputMode="numeric"
-          value={otpcode}
-        //   onChange={(e) => setOtpcode(e.target.value)}
-        />
+        <form action="">
+            <input
+            // type="text"
+            placeholder="Enter OTP"
+            autoComplete="one-time-code"
+            // inputMode="numeric"
+            value={otpcode}
+            //   onChange={(e) => setOtpcode(e.target.value)}
+            />
+        </form>
+        
       </>
     );
 };

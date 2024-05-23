@@ -83,9 +83,11 @@ export default function AppNavigation() {
 
   const drawerContent = (
     <List>
-      <Typography variant="h6" component="h6" textAlign="center">
-        Bonjour {userName}
-      </Typography>
+        <ListItem>
+            <Typography variant="h6" component="h6" textAlign="center">
+                Bonjour {userName}
+            </Typography>
+        </ListItem>
       {navigationLinks.map(({ label, Icon, path }) => (
         <ListItem button key={label} onClick={() => router.push(path)}>
           <ListItemIcon>
