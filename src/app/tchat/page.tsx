@@ -17,10 +17,11 @@ const Tchat: React.FC = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const username = localStorage.getItem('username');
+      const username = localStorage.getItem('userName'); // Vérifier le bon nom de la clé
       if (username) {
         socket = io({
           transports: ['websocket'], // Utiliser uniquement les WebSockets
+          withCredentials: true,
         });
 
         socket.on('message', (msg: Message) => {
@@ -36,7 +37,7 @@ const Tchat: React.FC = () => {
 
   const sendMessage = (e: FormEvent) => {
     e.preventDefault();
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('userName'); // Vérifier le bon nom de la clé
     const msg: Message = {
       content: message,
       dateEmis: new Date().toISOString(),
