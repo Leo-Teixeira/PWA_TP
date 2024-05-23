@@ -18,7 +18,6 @@ const nextConfigFunction = async (phase) => {
       dest: 'public',
       register: true,
       skipWaiting: true,
-      customWorkerSrc: "worker",
       runtimeCaching: [
         {
           urlPattern: /^https?:\/\/.*\/socket\.io\//,
