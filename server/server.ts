@@ -11,7 +11,7 @@ app.prepare().then(() => {
   const server = express();
   const httpServer = http.createServer(server);
   const io = new Server(httpServer, {
-    transports: ['websocket'],
+    transports: ['websocket'], // Utiliser uniquement les WebSockets
   });
 
   io.on('connection', (socket: Socket) => {

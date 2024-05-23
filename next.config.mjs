@@ -12,7 +12,7 @@ const nextConfigFunction = async (phase) => {
       reloadOnOnline: false,
       runtimeCaching: [
         {
-          urlPattern: /^https:\/\/localhost:\d+\/socket\.io\//,
+          urlPattern: /^https:\/\/(localhost|plac\.netlify\.app)\/socket\.io\//,
           handler: 'NetworkOnly',
         },
         // Ajoute ici d'autres stratégies de mise en cache si nécessaire
