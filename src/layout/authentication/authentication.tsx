@@ -44,7 +44,6 @@ const Authentication = () => {
                     label="Username"
                     variant="outlined"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
                     fullWidth
                     margin="normal"
                 />                    
