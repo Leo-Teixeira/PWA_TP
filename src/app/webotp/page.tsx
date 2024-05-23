@@ -4,14 +4,17 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { Box, Container, TextField, Button, Typography } from '@mui/material';
 
 const WebOTP: React.FC = () => {
-    const [otpcode, setOtpcode] = useState("");
+    const [otp, setOtp] = useState("");
     
     useEffect(() => {
         if ("OTPCredential" in window) {
+
+            console.log("OTPCredential is good");
+            
             const ac = new AbortController();
             const otpOption = {
-              otp: { transport: ['sms'] },
-              signal: ac.signal,
+                otp: { transport: ["sms"] },
+                signal: ac.signal
             };
             // const form = input.closest('form');
             // if (form) {
@@ -19,11 +22,15 @@ const WebOTP: React.FC = () => {
             //     ac.abort();
             // });
             // }
+            setTimeout(() => {
+                // abort after 10 minutes
+                ac.abort();
+            }, 10 * 60 * 1000);
             navigator.credentials.get(otpOption).then((otp :any) => {
                 console.log('OPT GET');
                 alert('OPT GET');
                 if (otp) {
-                    setOtpcode(otp.code)
+                    setOtp(otp.code);
                 }
             }).catch(err => {
                 console.log(err);
@@ -37,14 +44,15 @@ const WebOTP: React.FC = () => {
     return (
       <>
         <h1>Web OTP example</h1>
-        <h2>Your OTP is: {otpcode}</h2>
+        <h2>Your OTP is: {otp}</h2>
         <input
           type="text"
           placeholder="Enter OTP"
           autoComplete="one-time-code"
           inputMode="numeric"
-          value={otpcode}
-          onChange={(e) => setOtpcode(e.target.value)}
+          value={otp}
+        //   value={otpcode}
+        //   onChange={(e) => setOtpcode(e.target.value)}
         />
       </>
     );
