@@ -1,5 +1,5 @@
-'use client'
 import React, { useEffect, useState } from 'react';
+import './App.css';
 
 interface Message {
   text: string;
@@ -12,7 +12,7 @@ function Tchat() {
   let socket: WebSocket;
 
   useEffect(() => {
-    socket = new WebSocket('ws://localhost:3001');
+    socket = new WebSocket('wss://plac.netlify.app/.netlify/functions/websocket');
 
     socket.onopen = () => {
       console.log('WebSocket connection established.');

@@ -56,3 +56,5 @@ public/sw.js.map
 public/sw.js
 public/sw.js.*
 public/workbox-*
+# Local Netlify folder
+.netlify
