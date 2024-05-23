@@ -81,6 +81,7 @@
 
 'use client'
 import { useState, FormEvent } from 'react';
+import AppNavigation from '../AppNavigation/AppNavigation';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>('');
@@ -91,6 +92,10 @@ const Login: React.FC = () => {
       localStorage.setItem('username', username);
     }
   };
+
+    if (username) {
+        return <AppNavigation />;
+    }
 
   return (
     <div>
