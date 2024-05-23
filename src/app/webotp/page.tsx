@@ -13,7 +13,7 @@ const WebOTP: React.FC = () => {
               otp: { transport: ['sms'] },
               signal: ac.signal,
             };
-            const otpResult = navigator.credentials.get(otpOption).then((otp :any) => {
+            navigator.credentials.get(otpOption).then((otp :any) => {
                 console.log('OPT GET');
                 alert('OPT GET');
                 if (otp) {
