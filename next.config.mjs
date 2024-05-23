@@ -1,12 +1,12 @@
-
 import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from 'next/constants.js';
+import withPWA from '@ducanh2912/next-pwa';
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.resolve.alias['@sw.js'] = require.resolve('./public/sw.js');
+      config.resolve.alias['@sw.js'] = 'public/sw.js';
     }
     return config;
   },
@@ -14,7 +14,7 @@ const nextConfig = {
 
 const nextConfigFunction = async (phase) => {
   if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
-    const withPWA = (await import('@ducanh2912/next-pwa')).default({
+    return withPWA({
       dest: 'public',
       register: true,
       skipWaiting: true,
@@ -30,8 +30,7 @@ const nextConfigFunction = async (phase) => {
         },
         // Ajoutez d'autres stratégies de mise en cache si nécessaire
       ],
-    });
-    return withPWA(nextConfig);
+    })(nextConfig);
   }
   return nextConfig;
 };
