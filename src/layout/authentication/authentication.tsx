@@ -4,21 +4,20 @@ import AppNavigation from "@/layout/AppNavigation/AppNavigation";
 import { Box, Button, Container, Stack, TextField, Typography } from "@mui/material";
 import WebOTP from "../../components/global/WebOtp";
 import SendIcon from '@mui/icons-material/Send';
+import { useRouter } from "next/navigation";
 
 const Authentication = () => {
     const [username, setUsername] = useState('');
-    const [isAuth, setAuth] = useState(false);
     const { otp } = WebOTP();
-
-    const [userId, setUserId] = useState(typeof localStorage !== 'undefined' ? localStorage.getItem('userId') ? localStorage.getItem('userId') : '' : '');
+    const router = useRouter();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (username.trim() !== '' && typeof localStorage !== 'undefined') {
             const id = generateUserId();
-            setUserId(id);
-            localStorage.setItem("userName", username);
+            localStorage.setItem("userName", username); // Utiliser un nom de clé cohérent
             localStorage.setItem("userId", id);
+            router.push("/camera");
         }
     };
 
@@ -26,8 +25,8 @@ const Authentication = () => {
         return `user-${Math.random().toString(36).substr(2, 9)}`;
     };
 
-    if (userId) {
-        return <AppNavigation />;
+    if (username) {
+        return <AppNavigation/>
     }
 
     return (
@@ -48,27 +47,27 @@ const Authentication = () => {
                     fullWidth
                     margin="normal"
                 />                    
-                    <Stack width={'100%'} direction="row" spacing={2}>
-                        <TextField
+                <Stack width={'100%'} direction="row" spacing={2}>
+                    <TextField
                         type="tel"
                         label="Téléphone"
                         variant="outlined"
                         fullWidth
                         margin="normal"
-                        />
-                        <Button variant="contained" endIcon={<SendIcon />}>Envoyer</Button>
-                    </Stack>
-                    <TextField
-                        type="text"
-                        label="Code de validation"
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        placeholder="XXXXXX"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        value={otp}
                     />
+                    <Button variant="contained" endIcon={<SendIcon />}>Envoyer</Button>
+                </Stack>
+                <TextField
+                    type="text"
+                    label="Code de validation"
+                    variant="outlined"
+                    fullWidth
+                    margin="normal"
+                    placeholder="XXXXXX"
+                    autoComplete="one-time-code"
+                    inputMode="numeric"
+                    value={otp}
+                />
                 <Button type="submit" variant="contained" color="primary">
                     Se connecter
                 </Button>

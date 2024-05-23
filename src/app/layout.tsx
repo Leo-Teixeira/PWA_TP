@@ -4,6 +4,7 @@ import "./globals.scss";
 import IsOnline from "../components/Buttons/IsOnline";
 import Authentication from "@/layout/authentication/authentication";
 import AppNavigation from "@/layout/AppNavigation/AppNavigation";
+import Login from "@/layout/authentication/authentication";
 
 const APP_NAME = "Plac PWA";
 const APP_DEFAULT_TITLE = "Plac PWA";
@@ -61,7 +62,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={inter.className}>
         <IsOnline />
-        <Authentication/>
+        <Login/>
         <main>{children}</main>
       </body>
     </html>
