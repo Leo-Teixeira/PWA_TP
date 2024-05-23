@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { Box, Container, TextField, Button, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 const WebOTP: React.FC = () => {
     const [otp, setOtp] = useState("");
@@ -16,12 +15,6 @@ const WebOTP: React.FC = () => {
                 otp: { transport: ["sms"] },
                 signal: ac.signal
             };
-            // const form = input.closest('form');
-            // if (form) {
-            // form.addEventListener('submit', e => {
-            //     ac.abort();
-            // });
-            // }
             setTimeout(() => {
                 // abort after 10 minutes
                 ac.abort();
@@ -43,7 +36,6 @@ const WebOTP: React.FC = () => {
   
     return (
       <>
-        <h1>Web OTP example</h1>
         <h2>Your OTP is: {otp}</h2>
         <input
           type="text"
@@ -51,8 +43,6 @@ const WebOTP: React.FC = () => {
           autoComplete="one-time-code"
           inputMode="numeric"
           value={otp}
-        //   value={otpcode}
-        //   onChange={(e) => setOtpcode(e.target.value)}
         />
       </>
     );
