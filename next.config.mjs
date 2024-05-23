@@ -1,37 +1,26 @@
-import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from 'next/constants.js';
-import withPWA from '@ducanh2912/next-pwa';
+import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from "next/constants.js"
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.alias['@sw.js'] = 'public/sw.js';
-    }
-    return config;
-  },
-};
+}
 
 const nextConfigFunction = async (phase) => {
   if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
-    return withPWA({
-      dest: 'public',
-      register: true,
-      skipWaiting: true,
+    const withPWA = (await import("@ducanh2912/next-pwa")).default({
+      dest: "public",
+      reloadOnOnline: false,
       runtimeCaching: [
         {
-          urlPattern: /^https?:\/\/.*\/socket\.io\//,
-          handler: 'NetworkOnly', // Ne pas mettre en cache les requêtes WebSocket
-          options: {
-            cacheName: 'socket-io',
-            networkTimeoutSeconds: 10,
-          },
+          urlPattern: /^https:\/\/localhost:\d+\/socket\.io\//,
+          handler: 'NetworkOnly',
         },
-        // Ajoutez d'autres stratégies de mise en cache si nécessaire
+        // Ajoute ici d'autres stratégies de mise en cache si nécessaire
       ],
-    })(nextConfig);
+    })
+    return withPWA(nextConfig)
   }
-  return nextConfig;
-};
+  return nextConfig
+}
 
-export default nextConfigFunction;
+export default nextConfigFunction
