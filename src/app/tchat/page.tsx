@@ -1,75 +1,66 @@
-'use client';
-import { useEffect, useState, FormEvent } from 'react';
-import { io, Socket } from 'socket.io-client';
+import React, { useEffect, useState } from 'react';
+import './App.css';
 
 interface Message {
-  content: string;
-  dateEmis: string;
-  serverId: string;
-  autorId: string;
+  text: string;
+  timestamp: string;
 }
 
-let socket: Socket;
-
-const Tchat: React.FC = () => {
-  const [message, setMessage] = useState<string>('');
+function Tchat() {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [messageInput, setMessageInput] = useState<string>('');
+  let socket: WebSocket;
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const username = localStorage.getItem('userName'); // Vérifier le bon nom de la clé
-      if (username) {
-        socket = io({
-          transports: ['websocket'], // Utiliser uniquement les WebSockets
-          withCredentials: true,
-        });
+    socket = new WebSocket('ws://localhost:3001');
 
-        socket.on('message', (msg: Message) => {
-          setMessages((prevMessages) => [...prevMessages, msg]);
-        });
+    socket.onopen = () => {
+      console.log('WebSocket connection established.');
+    };
 
-        return () => {
-          socket.disconnect();
-        };
-      }
-    }
+    socket.onmessage = (event) => {
+      const receivedMessage: Message = JSON.parse(event.data);
+      setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+    };
+
+    return () => {
+      socket.close();
+    };
   }, []);
 
-  const sendMessage = (e: FormEvent) => {
-    e.preventDefault();
-    const username = localStorage.getItem('userName'); // Vérifier le bon nom de la clé
-    const msg: Message = {
-      content: message,
-      dateEmis: new Date().toISOString(),
-      serverId: 'server1',
-      autorId: username || 'unknown',
-    };
-    socket.emit('message', msg);
-    setMessage('');
+  const sendMessage = () => {
+    if (messageInput.trim() !== '') {
+      const message: Message = {
+        text: messageInput,
+        timestamp: new Date().toISOString(),
+      };
+      socket.send(JSON.stringify(message));
+      setMessageInput('');
+    }
   };
 
   return (
-    <div>
-      <h1>Chat</h1>
-      <div>
-        {messages.map((msg, index) => (
-          <div key={index}>
-            <p>{msg.content}</p>
-            <small>{msg.dateEmis}</small>
-          </div>
-        ))}
+    <div className="App">
+      <div className="chat-container">
+        <div className="chat-messages">
+          {messages.map((message, index) => (
+            <div key={index} className="message">
+              <span>{message.timestamp}</span> - <span>{message.text}</span>
+            </div>
+          ))}
+        </div>
+        <div className="chat-input">
+          <input
+            type="text"
+            placeholder="Type your message..."
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+          />
+          <button onClick={sendMessage}>Send</button>
+        </div>
       </div>
-      <form onSubmit={sendMessage}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          required
-        />
-        <button type="submit">Envoyer</button>
-      </form>
     </div>
   );
-};
+}
 
 export default Tchat;

@@ -1,40 +1,33 @@
-import express from 'express';
-import next from 'next';
-import http from 'http';
-import { Server, Socket } from 'socket.io';
+import { server as WebSocketServer, request as WebSocketRequest, connection as WebSocketConnection, Message } from 'websocket';
+import http, { IncomingMessage, ServerResponse } from 'http';
 
-const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
-const handle = app.getRequestHandler();
+const server = http.createServer((request: IncomingMessage, response: ServerResponse) => {
+  // Handle HTTP requests here
+  response.writeHead(404);
+  response.end();
+});
 
-app.prepare().then(() => {
-  const server = express();
-  const httpServer = http.createServer(server);
-  const io = new Server(httpServer, {
-    cors: {
-      origin: "*",
-      methods: ["GET", "POST"]
-    },
-    transports: ['websocket'], // Utiliser uniquement les WebSockets
+const webSocketServer = new WebSocketServer({
+  httpServer: server,
+});
+
+webSocketServer.on('request', (request: WebSocketRequest) => {
+  const connection = request.accept(null, request.origin);
+
+  connection.on('message', (message: Message) => {
+    // Handle incoming WebSocket messages here
+    if (message.type === 'utf8' && message.utf8Data) {
+      console.log('Received Message:', message.utf8Data);
+      connection.sendUTF('Hello from server!');
+    }
   });
 
-  io.on('connection', (socket: Socket) => {
-    console.log('a user connected');
-    socket.on('message', (msg) => {
-      io.emit('message', msg);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
-    });
+  connection.on('close', (reasonCode: number, description: string) => {
+    // Handle WebSocket connection closure here
+    console.log('Client has disconnected.');
   });
+});
 
-  server.all('*', (req, res) => {
-    return handle(req, res);
-  });
-
-  httpServer.listen(4620, (err?: Error) => {
-    if (err) throw err;
-    console.log('> Ready on http://localhost:4620');
-  });
+server.listen(3001, () => {
+  console.log('WebSocket server is listening on port 3001');
 });
