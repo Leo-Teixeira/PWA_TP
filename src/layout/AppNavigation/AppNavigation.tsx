@@ -2,10 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -17,7 +14,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Grid,
   Button,
   Stack,
 } from "@mui/material";
@@ -34,7 +30,6 @@ import "./AppNavigation.scss";
 export default function AppNavigation() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [value, setValue] = useState(PageNamesConstants.Camera.path);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const router = useRouter();
   const [userName, setUserName] = useState("");
@@ -74,12 +69,6 @@ export default function AppNavigation() {
     { label: "Tchat", Icon: ChatIcon, path: PageNamesConstants.Tchat.path },
   ];
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    setValue(newValue);
-    setDrawerOpen(false);
-    router.push(newValue);
-  };
-
   const disconnect = () => {
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
         router.push(PageNamesConstants.Login.path);
@@ -118,41 +107,6 @@ export default function AppNavigation() {
         </Typography>
       </Stack>
       {drawerContent}
-      {/* <BottomNavigation showLabels value={value} onChange={handleChange} sx={{ width: "100%" }}>
-        <BottomNavigationAction
-          label="Caméra"
-          icon={<PhotoCameraIcon />}
-          value={PageNamesConstants.Camera.path}
-          sx={{ justifyContent: "flex-start" }}
-        />
-        <BottomNavigationAction
-          label="Localisation"
-          icon={<LocationOnIcon />}
-          value={PageNamesConstants.Localisation.path}
-          sx={{ justifyContent: "flex-start" }}
-        />
-        <BottomNavigationAction
-          label="Appel téléphonique"
-          icon={<PhoneInTalkIcon />}
-          value={PageNamesConstants.PhoneCall.path}
-          sx={{ justifyContent: "flex-start" }}
-        />
-        <BottomNavigationAction
-          label="WebOTP"
-          icon={<LanguageIcon />}
-          value={PageNamesConstants.WebOTP.path}
-          sx={{ justifyContent: "flex-start" }}
-        />
-        <BottomNavigationAction
-          label="Tchat"
-          icon={<ChatIcon />}
-          value={PageNamesConstants.Tchat.path}
-          sx={{ justifyContent: "flex-start" }}
-        />
-      </BottomNavigation> */}
-
-        
-
     </header>
   );
 

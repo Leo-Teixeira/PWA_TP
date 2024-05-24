@@ -53,12 +53,6 @@ export default function GeoLocalisation() {
     setPositions({ latitude: 0, longitude: 0 });
     enableMarker(false);
   };
-  useEffect(() => {
-    // Exécutez la logique de géolocalisation uniquement côté client
-    // if (typeof window !== "undefined") {
-    //   getLocation();
-    // }
-  }, []);
 
   return (
     <Box className="GeoLocalisation">

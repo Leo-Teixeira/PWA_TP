@@ -46,15 +46,9 @@ const Camera = () => {
 		})
 	}
 
-	const handleOfflineAction = () => {
-		console.log("Hors ligne")
-	}
-
 	useEffect(() => {
 		if (isOnline) {
 			handleOnlineAction()
-		} else {
-			handleOfflineAction()
 		}
 	}, [isOnline])
 

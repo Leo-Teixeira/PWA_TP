@@ -6,7 +6,6 @@ import { TextField } from '@mui/material';
 
 const WebOTPPage: React.FC = () => {
     const { otp, setOtp } = WebOTP();
-    // const [otp, setOtp] = useState("");
 
     return (
         <>
