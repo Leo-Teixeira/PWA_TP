@@ -18,53 +18,39 @@ const Camera = () => {
 	const {isOnline} = OnlineStatus()
 	const [camera, setCamera] = useState<boolean | null>(false)
 	const [buttonText, setButtonText] = useState<string | null>("Allumer caméra")
-	const [photos, setPhotos] = useState<Map<string, {photo: string; online: boolean | null}>>(new Map())
-    const [listPhoto, setListPhoto] = useState<interfacePhoto[]>(typeof localStorage !== 'undefined' ? localStorage.getItem('listPhoto') ? JSON.parse(localStorage.getItem('listPhoto') ?? '') : []: []);
+	const [photos, setPhotos] = useState<Map<string, interfacePhoto>>(new Map())
 	const videoRef = useRef<any>()
-	//   const notification = document.querySelector("#notification");
-	//   const sendButton = document.querySelector("#send");
-
-	// useEffect(() => {
-    //     // setListPhoto(JSON.stringify(photos))
-	// 	localStorage.setItem("listPhoto", listPhoto ? listPhoto : JSON.stringify(''))
-    //     // setListPhoto( )
-	// }, [photos])
-
-    const newPhotos = new Map();
-    let index = 0;
-    
-    listPhoto.forEach((photo: interfacePhoto) => {
-        index++;
-        newPhotos.set(`photo_${index}`, photo)
-    })
-
-    setPhotos(newPhotos)
 
 	useEffect(() => {
-		const handleOnlineAction = () => {
-			// Actions à effectuer lorsque l'utilisateur est en ligne
-			console.log("En ligne")
-			setPhotos((prevPhotos) => {
-				const updatedPhotos = new Map(prevPhotos)
-                let nbPhotoUpdate = 0;
-				updatedPhotos.forEach((photo) => {
-                    if (photo.online == false) {
-                        photo.online = true;
-                        nbPhotoUpdate++;
-                    }
-				})
-                if (nbPhotoUpdate > 1) {
-                    showNotification(nbPhotoUpdate + 'ont été upload')
-                }
-				return updatedPhotos
+		const storedPhotos = localStorage.getItem('listPhoto')
+		if (storedPhotos) {
+			setPhotos(new Map(JSON.parse(storedPhotos)))
+		}
+	}, [])
+
+	const handleOnlineAction = () => {
+		console.log("En ligne")
+		setPhotos((prevPhotos) => {
+			const updatedPhotos = new Map(prevPhotos)
+			let nbPhotoUpdate = 0;
+			updatedPhotos.forEach((photo) => {
+				if (photo.online === false) {
+					photo.online = true;
+					nbPhotoUpdate++;
+				}
 			})
-		}
+			if (nbPhotoUpdate > 1) {
+				showNotification(nbPhotoUpdate + ' ont été upload')
+			}
+			return updatedPhotos
+		})
+	}
 
-		const handleOfflineAction = () => {
-			// Actions à effectuer lorsque l'utilisateur est hors ligne
-			console.log("Hors ligne")
-		}
+	const handleOfflineAction = () => {
+		console.log("Hors ligne")
+	}
 
+	useEffect(() => {
 		if (isOnline) {
 			handleOnlineAction()
 		} else {
@@ -97,7 +83,7 @@ const Camera = () => {
 	}
 
 	const startCamera = async () => {
-		if (camera == false) {
+		if (camera === false) {
 			setCamera(true)
 			setButtonText("Eteindre la caméra")
 		} else {
@@ -131,16 +117,15 @@ const Camera = () => {
 
 				setPhotos((prevPhotos) => {
 					const newPhotos = new Map(prevPhotos)
-                    const newPhotoData: interfacePhoto = {
-                        photo: data,
-                        online: isOnline,
-                    };
+					const newPhotoData: interfacePhoto = {
+						photo: data,
+						online: isOnline,
+					};
 					newPhotos.set(`photo_${prevPhotos.size + 1}`, newPhotoData)
 					return newPhotos
 				})
 
-                // On set dans le localStorage les photos*
-                localStorage.setItem('listPhoto', JSON.stringify(photos))
+				localStorage.setItem('listPhoto', JSON.stringify(Array.from(photos)))
 			}
 			if (isOnline) {
 				showNotification("Une photo à été ajouté")
@@ -163,47 +148,25 @@ const Camera = () => {
 			<Button onClick={startCamera} variant="contained" endIcon={<PhotoCameraIcon />}>
 				{buttonText}
 			</Button>
-			{
-				photos ? (
-                    <Stack sx={{ marginTop:'2rem', gap:'1rem', flexWrap: 'wrap', flexDirection :'row' }}>
-                        {Array.from(photos.entries()).map(([key, photo]) => (
-                            <div key={key} className="img-container">
-                                <img
-                                src={photo.photo}
-                                alt={`Photo ${key}`}
-                                className="img"
-                                loading="lazy"
-                                width={200}
-                                height={200}
-                                />
-                                <div className={photo.online ? 'img-icon' : 'img-icon'}>{photo.online ? <CloudDoneIcon fontSize="inherit" /> : <CloudOffIcon fontSize="inherit" />}</div>
-                            </div>
-                        ))}
-                    </Stack>
-				) : <div></div>
-                // listPhoto &&
-                //     <Stack sx={{ marginTop:'2rem', gap:'1rem', flexWrap: 'wrap', flexDirection :'row' }}>
-                //         {listPhoto.map(([key, photo]) => (
-                //             <div key={key} className="img-container">
-                //                 <img
-                //                 src={photo.photo}
-                //                 alt={`Photo ${key}`}
-                //                 className="img"
-                //                 loading="lazy"
-                //                 width={200}
-                //                 height={200}
-                //                 />
-                //                 <div className={photo.online ? 'img-icon' : 'img-icon'}>{photo.online ? <CloudDoneIcon fontSize="inherit" /> : <CloudOffIcon fontSize="inherit" />}</div>
-                //             </div>
-                //         ))}
-                //     </Stack>
-				// Array.from(photos.entries()).map(([key, photo]) => (
-				//   <Box key={key}>
-				//     <Typography>Online: {photo.online ? "Yes" : "No"}</Typography>
-				//     <img src={photo.photo} alt={`Photo ${key}`} />
-				//   </Box>
-				// ))
-			}
+			{photos.size > 0 && (
+				<Stack sx={{ marginTop:'2rem', gap:'1rem', flexWrap: 'wrap', flexDirection :'row' }}>
+					{Array.from(photos.entries()).map(([key, photo]) => (
+						<div key={key} className="img-container">
+							<img
+								src={photo.photo}
+								alt={`Photo ${key}`}
+								className="img"
+								loading="lazy"
+								width={200}
+								height={200}
+							/>
+							<div className={photo.online ? 'img-icon' : 'img-icon'}>
+								{photo.online ? <CloudDoneIcon fontSize="inherit" /> : <CloudOffIcon fontSize="inherit" />}
+							</div>
+						</div>
+					))}
+				</Stack>
+			)}
 		</Box>
 	)
 }
