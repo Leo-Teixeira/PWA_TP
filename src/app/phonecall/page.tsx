@@ -23,22 +23,6 @@ const PhoneCall = () => {
                 //     readOnly: true,
                 // }}
             />
-            {/* <Grid container spacing={1}>
-                {['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'].map((key) => (
-                    <Grid item xs={4} key={key}>
-                        {
-                            key === '<' ? 
-                            <Button variant="outlined" sx={{ borderRadius: 32 }} onClick={() => handleClick(key)} fullWidth>
-                                {key}
-                            </Button> : 
-                            <Button variant="outlined" sx={{ borderRadius: 32 }} onClick={() => handleClick(key)} fullWidth>
-                                {key}
-                            </Button>
-                        }
-                        
-                    </Grid>
-                ))}
-            </Grid> */}
             <Button
                 variant="contained" 
                 color="primary" 
