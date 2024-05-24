@@ -60,19 +60,30 @@ const Camera = () => {
 
 	const showNotification = async (textMessage = "Une nouvelle photo a été ajoutée") => {
 		if ("Notification" in window) {
-			Notification.requestPermission().then((result) => {
-				if (result === "granted") {
-					new Notification("Notification", {
-						body: textMessage,
-					})
-				} else {
-					throw new Error("Permission denied")
+		  Notification.requestPermission().then(async (result) => {
+			if (result === "granted") {
+			  if ('serviceWorker' in navigator && 'Notification' in window) {
+				try {
+				  const registration = await navigator.serviceWorker.ready;
+				  await registration.showNotification('Nouvelle photo', {
+					body: textMessage,
+					icon: '/path/to/icon.png', // Remplacez par le chemin de votre icône de notification
+				  });
+				} catch (error) {
+				  console.error('Failed to display notification:', error);
 				}
-			})
+			  } else {
+				console.warn('Notifications not supported');
+			  }
+			} else {
+			  throw new Error("Permission denied")
+			}
+		  })
 		} else {
-			throw new Error("Notification not supported")
+		  throw new Error("Notification not supported")
 		}
-	}
+	  }
+	  
 
 	const handleVibration = () => {
 		navigator.vibrate([100, 30, 100, 30, 100, 30, 200, 30, 200, 30, 200, 30, 100, 30, 100, 30, 100])
