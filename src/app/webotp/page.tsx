@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import WebOTP from "../../components/global/WebOtp";
 import { TextField } from '@mui/material';
 
