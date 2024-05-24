@@ -29,7 +29,6 @@ const Camera = () => {
 	}, [])
 
 	const handleOnlineAction = () => {
-		console.log("En ligne")
 		setPhotos((prevPhotos) => {
 			const updatedPhotos = new Map(prevPhotos)
 			let nbPhotoUpdate = 0;
