@@ -10,7 +10,7 @@ const nextConfigFunction = async (phase) => {
     const withPWA = (await import("@ducanh2912/next-pwa")).default({
       dest: "public",
       reloadOnOnline: false,
-      
+      customWorkerSrc: "worker",
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/localhost:\d+\/socket\.io\//,
