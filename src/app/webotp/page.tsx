@@ -5,7 +5,7 @@ import WebOTP from "../../components/global/WebOtp";
 import { TextField } from '@mui/material';
 
 const WebOTPPage: React.FC = () => {
-    const { otp } = WebOTP();
+    const { otp, setOtp } = WebOTP();
     // const [otp, setOtp] = useState("");
 
     return (
@@ -21,6 +21,7 @@ const WebOTPPage: React.FC = () => {
                 autoComplete="one-time-code"
                 inputMode="numeric"
                 value={otp}
+                onChange={(e) => setOtp(e.target.value)}
             />
         </>
     );

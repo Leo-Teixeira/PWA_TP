@@ -8,7 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 const Authentication = () => {
     const [username, setUsername] = useState('');
     const [isAuth, setAuth] = useState(false);
-    const { otp } = WebOTP();
+    const { otp, setOtp } = WebOTP();
 
     const [userId, setUserId] = useState(typeof localStorage !== 'undefined' ? localStorage.getItem('userId') ? localStorage.getItem('userId') : '' : '');
 
@@ -68,6 +68,7 @@ const Authentication = () => {
                         autoComplete="one-time-code"
                         inputMode="numeric"
                         value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
                     />
                 <Button type="submit" variant="contained" color="primary">
                     Se connecter

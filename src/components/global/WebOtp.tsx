@@ -40,7 +40,8 @@ const WebOTP = () => {
     }, []);
   
     return {
-		otp
+		otp,
+        setOtp
 	}
 };
 
