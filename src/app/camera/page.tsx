@@ -32,6 +32,7 @@ const Camera = () => {
 
     const newPhotos = new Map();
     let index = 0;
+    
     listPhoto.forEach((photo: interfacePhoto) => {
         index++;
         newPhotos.set(`photo_${index}`, photo)
@@ -75,9 +76,13 @@ const Camera = () => {
 		if ("Notification" in window) {
 			Notification.requestPermission().then((result) => {
 				if (result === "granted") {
-					new Notification("Notification", {
-						body: textMessage,
-					})
+                    // On récupère showNotification du service worker et on affiche la notification
+                    navigator.serviceWorker.ready.then((registration) => {
+                        registration.showNotification("Nouvelle photo", {
+                            body: textMessage,
+                            icon: "/favicon.ico",
+                        })
+                    })
 				} else {
 					throw new Error("Permission denied")
 				}
