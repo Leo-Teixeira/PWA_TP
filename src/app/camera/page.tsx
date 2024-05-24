@@ -30,20 +30,14 @@ const Camera = () => {
     //     // setListPhoto( )
 	// }, [photos])
 
-    useEffect(() => {
+    const newPhotos = new Map();
+    let index = 0;
+    listPhoto.forEach((photo: interfacePhoto) => {
+        index++;
+        newPhotos.set(`photo_${index}`, photo)
+    })
 
-        // const oldlistPhotos = JSON.parse(localStorage.getItem('listPhoto') ?? '')
-
-        // // On ajoute les photos du localStorage dans les photos
-        const newPhotos = new Map();
-        let index = 0;
-        listPhoto.forEach((photo: interfacePhoto) => {
-            index++;
-            newPhotos.set(`photo_${index}`, photo)
-        })
-
-        setPhotos(newPhotos)
-	})
+    setPhotos(newPhotos)
 
 	useEffect(() => {
 		const handleOnlineAction = () => {
