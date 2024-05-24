@@ -10,12 +10,12 @@ const nextConfigFunction = async (phase) => {
     const withPWA = (await import("@ducanh2912/next-pwa")).default({
       dest: "public",
       reloadOnOnline: false,
+      
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/localhost:\d+\/socket\.io\//,
           handler: 'NetworkOnly',
         },
-        // Ajoute ici d'autres stratégies de mise en cache si nécessaire
       ],
     })
     return withPWA(nextConfig)
