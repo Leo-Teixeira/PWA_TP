@@ -9,12 +9,17 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera"
 import CloudDoneIcon from "@mui/icons-material/CloudDone"
 import CloudOffIcon from "@mui/icons-material/CloudOff"
 
+interface interfacePhoto {
+    photo: string;
+    online: boolean | null;
+}
+
 const Camera = () => {
 	const {isOnline} = OnlineStatus()
 	const [camera, setCamera] = useState<boolean | null>(false)
 	const [buttonText, setButtonText] = useState<string | null>("Allumer caméra")
 	const [photos, setPhotos] = useState<Map<string, {photo: string; online: boolean | null}>>(new Map())
-    const [listPhoto, setListPhoto] = useState(typeof localStorage !== 'undefined' ? localStorage.getItem('listPhoto') ? JSON.parse(localStorage.getItem('listPhoto') ?? '') : '' : '');
+    const [listPhoto, setListPhoto] = useState<interfacePhoto[]>(typeof localStorage !== 'undefined' ? localStorage.getItem('listPhoto') ? JSON.parse(localStorage.getItem('listPhoto') ?? '') : []: []);
 	const videoRef = useRef<any>()
 	//   const notification = document.querySelector("#notification");
 	//   const sendButton = document.querySelector("#send");
@@ -24,6 +29,21 @@ const Camera = () => {
 	// 	localStorage.setItem("listPhoto", listPhoto ? listPhoto : JSON.stringify(''))
     //     // setListPhoto( )
 	// }, [photos])
+
+    useEffect(() => {
+
+        // const oldlistPhotos = JSON.parse(localStorage.getItem('listPhoto') ?? '')
+
+        // // On ajoute les photos du localStorage dans les photos
+        const newPhotos = new Map();
+        let index = 0;
+        listPhoto.forEach((photo: interfacePhoto) => {
+            index++;
+            newPhotos.set(`photo_${index}`, photo)
+        })
+
+        setPhotos(newPhotos)
+	})
 
 	useEffect(() => {
 		const handleOnlineAction = () => {
@@ -109,21 +129,19 @@ const Camera = () => {
 				canvas.getContext("2d")?.drawImage(videoRef.current, 0, 0)
 
 				const data = canvas.toDataURL("image/png")
+
 				setPhotos((prevPhotos) => {
 					const newPhotos = new Map(prevPhotos)
-					newPhotos.set(`photo_${prevPhotos.size + 1}`, {
-						photo: data,
-						online: isOnline,
-					})
+                    const newPhotoData: interfacePhoto = {
+                        photo: data,
+                        online: isOnline,
+                    };
+					newPhotos.set(`photo_${prevPhotos.size + 1}`, newPhotoData)
 					return newPhotos
 				})
 
-                if (photos) {
-                    localStorage.setItem("listPhoto", JSON.stringify(Array.from(photos.entries())))
-                }else{
-                    localStorage.setItem("listPhoto", JSON.stringify(''))
-                }
-                setListPhoto(JSON.parse(localStorage.getItem('listPhoto') ?? ''))
+                // On set dans le localStorage les photos*
+                localStorage.setItem('listPhoto', JSON.stringify(photos))
 			}
 			if (isOnline) {
 				showNotification("Une photo à été ajouté")
@@ -147,15 +165,22 @@ const Camera = () => {
 				{buttonText}
 			</Button>
 			{
-				listPhoto ? (
-					<Stack sx={{marginTop: "2rem", gap: "1rem", flexWrap: "wrap", flexDirection: "row"}}>
-						{listPhoto.array.forEach((element :any) => {
-							<div className="img-container">
-								<img src={element.photo} alt={`Photo`} className="img" loading="lazy" width={200} height={200} />
-								<div className={element.online ? "img-icon" : "img-icon"}>{element.online ? <CloudDoneIcon fontSize="inherit" /> : <CloudOffIcon fontSize="inherit" />}</div>
-							</div>
-                        })}
-					</Stack>
+				photos ? (
+                    <Stack sx={{ marginTop:'2rem', gap:'1rem', flexWrap: 'wrap', flexDirection :'row' }}>
+                        {Array.from(photos.entries()).map(([key, photo]) => (
+                            <div key={key} className="img-container">
+                                <img
+                                src={photo.photo}
+                                alt={`Photo ${key}`}
+                                className="img"
+                                loading="lazy"
+                                width={200}
+                                height={200}
+                                />
+                                <div className={photo.online ? 'img-icon' : 'img-icon'}>{photo.online ? <CloudDoneIcon fontSize="inherit" /> : <CloudOffIcon fontSize="inherit" />}</div>
+                            </div>
+                        ))}
+                    </Stack>
 				) : <div></div>
                 // listPhoto &&
                 //     <Stack sx={{ marginTop:'2rem', gap:'1rem', flexWrap: 'wrap', flexDirection :'row' }}>
